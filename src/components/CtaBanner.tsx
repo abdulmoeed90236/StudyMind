@@ -40,7 +40,6 @@ export const CtaBanner: React.FC<CtaBannerProps> = ({ onOpenAuth }) => {
                 onClick={onOpenAuth}
                 className="w-full sm:w-auto px-8 py-4 rounded-xl text-sm font-extrabold text-black bg-emerald-400 hover:bg-emerald-300 shadow-xl shadow-emerald-500/20 transition-all duration-200 transform hover:-translate-y-0.5 flex items-center justify-center gap-2 group"
               >
-                <Sparkles className="w-4 h-4 text-black" />
                 <span>Get Started Free Now</span>
                 <ArrowRight className="w-4 h-4 text-black group-hover:translate-x-1 transition-transform" />
               </button>

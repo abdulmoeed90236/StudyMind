@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Sparkles, ArrowRight, CheckCircle2, Lock, Mail, User, GraduationCap } from 'lucide-react';
+import { X, ArrowRight, CheckCircle2, Lock, Mail, User, GraduationCap, Brain } from 'lucide-react';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -58,7 +58,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               {/* Header */}
               <div className="mb-6">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950 text-emerald-300 text-xs font-bold mb-3 border border-emerald-500/30">
-                  <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                  <Brain className="w-3.5 h-3.5 text-emerald-400" />
                   <span>{planName ? `Selected Plan: ${planName}` : 'Student Academic Copilot'}</span>
                 </div>
 

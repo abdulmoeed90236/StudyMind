@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { FileText, Sparkles, Layers, Bot, ArrowRight, CheckCircle2, Zap, BrainCircuit, Lightbulb, Compass, BarChart2 } from 'lucide-react';
+import { FileText, Layers, Bot, ArrowRight, CheckCircle2, Zap, BrainCircuit, Lightbulb, Compass, BarChart2 } from 'lucide-react';
 import { FEATURES_DATA } from '../data/mockData';
 import { Feature } from '../types';
 
@@ -19,7 +19,8 @@ export const Features: React.FC<FeaturesProps> = ({ onSelectFeature, onOpenAuth 
       case 'FileText':
         return <FileText className="w-6 h-6 text-emerald-400" />;
       case 'Sparkles':
-        return <Sparkles className="w-6 h-6 text-emerald-400" />;
+      case 'Lightbulb':
+        return <Lightbulb className="w-6 h-6 text-emerald-400" />;
       case 'Layers':
         return <Layers className="w-6 h-6 text-emerald-400" />;
       case 'Bot':
@@ -131,7 +132,7 @@ export const Features: React.FC<FeaturesProps> = ({ onSelectFeature, onOpenAuth 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7 space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-500/30">
-                <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                <Zap className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Feature Spotlight: {activeFeature.title}</span>
               </div>
 

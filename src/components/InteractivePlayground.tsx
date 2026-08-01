@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Sparkles, FileText, Lightbulb, Layers, Bot, Send, RefreshCw, Copy, Check, ArrowRight, Play, Brain, Code2, FlaskConical, Globe } from 'lucide-react';
+import { FileText, Lightbulb, Layers, Bot, Send, RefreshCw, Copy, Check, ArrowRight, Play, Brain, Code2, FlaskConical, Globe, Zap } from 'lucide-react';
 import { SAMPLE_STUDY_NOTES } from '../data/mockData';
 
 interface InteractivePlaygroundProps {
@@ -55,7 +55,7 @@ export const InteractivePlayground: React.FC<InteractivePlaygroundProps> = ({ on
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-950/90 border border-emerald-500/30 text-emerald-300 text-xs font-bold mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+            <Zap className="w-3.5 h-3.5 text-emerald-400" />
             <span>Interactive Live AI Sandbox</span>
           </div>
 
@@ -221,7 +221,7 @@ export const InteractivePlayground: React.FC<InteractivePlaygroundProps> = ({ on
                 <div className="space-y-4">
                   <div className="flex items-center justify-between pb-3 border-b border-emerald-950">
                     <span className="text-xs font-bold text-emerald-300 flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-emerald-400" /> Generated Executive Summary
+                      <FileText className="w-4 h-4 text-emerald-400" /> Generated Executive Summary
                     </span>
                     <button
                       onClick={() => handleCopy(currentSample.summary.keyTakeaways.join('\n'))}

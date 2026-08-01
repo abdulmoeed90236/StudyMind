@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Check, Sparkles, HelpCircle, ChevronDown, ArrowRight, ShieldCheck, Zap, Users, GraduationCap } from 'lucide-react';
+import { Check, HelpCircle, ChevronDown, ArrowRight, ShieldCheck, Zap, Users, GraduationCap } from 'lucide-react';
 import { PRICING_PLANS, FAQ_ITEMS } from '../data/mockData';
 
 interface PricingProps {
