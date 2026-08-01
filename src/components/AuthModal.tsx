@@ -35,20 +35,20 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-950/80 backdrop-blur-md">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0F172A]/80 backdrop-blur-md">
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 10 }}
-          className="relative w-full max-w-md bg-zinc-900 border border-emerald-500/30 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-emerald-950/90 text-white overflow-hidden"
+          className="relative w-full max-w-md bg-[#1E293B] border border-[#334155] rounded-2xl p-6 sm:p-8 shadow-2xl shadow-indigo-500/10 text-white overflow-hidden"
         >
           {/* Background Gradient Accent */}
-          <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-500/10 rounded-full blur-[80px] pointer-events-none" />
+          <div className="absolute top-0 right-0 w-48 h-48 bg-[#6366F1]/10 rounded-full blur-[80px] pointer-events-none" />
 
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-1.5 rounded-lg bg-zinc-950 border border-emerald-500/20 text-slate-400 hover:text-white transition-colors"
+            className="absolute top-4 right-4 p-1.5 rounded-lg bg-[#0F172A] border border-[#334155] text-[#94A3B8] hover:text-white transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -57,15 +57,15 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             <div>
               {/* Header */}
               <div className="mb-6">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950 text-emerald-300 text-xs font-bold mb-3 border border-emerald-500/30">
-                  <Brain className="w-3.5 h-3.5 text-emerald-400" />
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0F172A] text-[#818CF8] text-xs font-bold mb-3 border border-[#334155]">
+                  <Brain className="w-3.5 h-3.5 text-[#6366F1]" />
                   <span>{planName ? `Selected Plan: ${planName}` : 'Student Academic Copilot'}</span>
                 </div>
 
-                <h3 className="text-2xl font-extrabold text-white">
+                <h3 className="text-2xl font-extrabold text-[#F8FAFC]">
                   {mode === 'signup' ? 'Create Your Free Account' : 'Welcome Back'}
                 </h3>
-                <p className="text-xs text-slate-300 mt-1">
+                <p className="text-xs text-[#94A3B8] mt-1">
                   {mode === 'signup'
                     ? 'Start summarizing PDFs and acing your exams in under 60 seconds.'
                     : 'Sign in to access your saved course notes and flashcard decks.'}
@@ -76,7 +76,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               <div className="space-y-2.5 mb-5">
                 <button
                   onClick={() => setSubmitted(true)}
-                  className="w-full py-2.5 px-4 rounded-xl bg-zinc-950 border border-emerald-500/30 hover:border-emerald-400 text-xs font-bold text-slate-200 transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-2.5 px-4 rounded-xl bg-[#0F172A] border border-[#334155] hover:border-[#6366F1]/50 text-xs font-bold text-slate-200 transition-colors flex items-center justify-center gap-2"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24">
                     <path
@@ -102,9 +102,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
               <div className="relative my-4 flex items-center justify-center">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-emerald-950" />
+                  <div className="w-full border-t border-[#334155]" />
                 </div>
-                <span className="relative bg-zinc-900 px-3 text-[10px] text-slate-400 uppercase font-bold">
+                <span className="relative bg-[#1E293B] px-3 text-[10px] text-[#94A3B8] uppercase font-bold">
                   Or with email
                 </span>
               </div>
@@ -113,73 +113,73 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               <form onSubmit={handleSubmit} className="space-y-3">
                 {mode === 'signup' && (
                   <div>
-                    <label className="text-[11px] font-semibold text-slate-300 block mb-1">
+                    <label className="text-[11px] font-semibold text-[#94A3B8] block mb-1">
                       University or School Name (Optional)
                     </label>
                     <div className="relative">
-                      <GraduationCap className="w-4 h-4 text-emerald-400 absolute left-3 top-3" />
+                      <GraduationCap className="w-4 h-4 text-[#6366F1] absolute left-3 top-3" />
                       <input
                         type="text"
                         value={university}
                         onChange={(e) => setUniversity(e.target.value)}
                         placeholder="e.g. Stanford University"
-                        className="w-full bg-zinc-950 border border-emerald-500/20 rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-400"
+                        className="w-full bg-[#0F172A] border border-[#334155] rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-[#6366F1]"
                       />
                     </div>
                   </div>
                 )}
 
                 <div>
-                  <label className="text-[11px] font-semibold text-slate-300 block mb-1">
+                  <label className="text-[11px] font-semibold text-[#94A3B8] block mb-1">
                     Student Email Address
                   </label>
                   <div className="relative">
-                    <Mail className="w-4 h-4 text-emerald-400 absolute left-3 top-3" />
+                    <Mail className="w-4 h-4 text-[#6366F1] absolute left-3 top-3" />
                     <input
                       type="email"
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="alex@university.edu"
-                      className="w-full bg-zinc-950 border border-emerald-500/20 rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-400"
+                      className="w-full bg-[#0F172A] border border-[#334155] rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-[#6366F1]"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-semibold text-slate-300 block mb-1">
+                  <label className="text-[11px] font-semibold text-[#94A3B8] block mb-1">
                     Password
                   </label>
                   <div className="relative">
-                    <Lock className="w-4 h-4 text-emerald-400 absolute left-3 top-3" />
+                    <Lock className="w-4 h-4 text-[#6366F1] absolute left-3 top-3" />
                     <input
                       type="password"
                       required
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••••••"
-                      className="w-full bg-zinc-950 border border-emerald-500/20 rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-400"
+                      className="w-full bg-[#0F172A] border border-[#334155] rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-[#6366F1]"
                     />
                   </div>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-3 mt-2 rounded-xl text-xs font-extrabold text-black bg-emerald-400 hover:bg-emerald-300 shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center gap-2"
+                  className="w-full py-3 mt-2 rounded-xl text-xs font-extrabold text-white bg-[#6366F1] hover:bg-indigo-500 shadow-lg shadow-indigo-500/20 transition-all flex items-center justify-center gap-2"
                 >
                   <span>{mode === 'signup' ? 'Create Free Account' : 'Sign In Now'}</span>
-                  <ArrowRight className="w-4 h-4 text-black" />
+                  <ArrowRight className="w-4 h-4 text-white" />
                 </button>
               </form>
 
               {/* Mode Toggle */}
-              <div className="mt-5 text-center text-xs text-slate-400">
+              <div className="mt-5 text-center text-xs text-[#94A3B8]">
                 {mode === 'signup' ? (
                   <p>
                     Already have an account?{' '}
                     <button
                       onClick={() => setMode('login')}
-                      className="text-emerald-400 font-bold hover:underline"
+                      className="text-[#6366F1] font-bold hover:underline"
                     >
                       Log In
                     </button>
@@ -189,7 +189,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     New to StudyMind AI?{' '}
                     <button
                       onClick={() => setMode('signup')}
-                      className="text-emerald-400 font-bold hover:underline"
+                      className="text-[#6366F1] font-bold hover:underline"
                     >
                       Sign Up Free
                     </button>
@@ -200,22 +200,22 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           ) : (
             /* Success Confirmation View */
             <div className="text-center py-6 space-y-4">
-              <div className="w-16 h-16 rounded-full bg-emerald-950 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto">
-                <CheckCircle2 className="w-8 h-8 text-emerald-400" />
+              <div className="w-16 h-16 rounded-full bg-[#0F172A] border border-[#334155] text-[#10B981] flex items-center justify-center mx-auto">
+                <CheckCircle2 className="w-8 h-8 text-[#10B981]" />
               </div>
 
               <h3 className="text-2xl font-extrabold text-white">
                 Welcome to StudyMind AI! 🎉
               </h3>
 
-              <p className="text-xs text-slate-300 leading-relaxed max-w-sm mx-auto">
+              <p className="text-xs text-[#94A3B8] leading-relaxed max-w-sm mx-auto">
                 Your account is ready! We&apos;ve unlocked your workspace with 5 free PDF summaries and unlimited flashcards.
               </p>
 
               <div className="pt-4 space-y-2">
                 <button
                   onClick={handleReset}
-                  className="w-full py-3 rounded-xl text-xs font-extrabold text-black bg-emerald-400 hover:bg-emerald-300 transition-colors"
+                  className="w-full py-3 rounded-xl text-xs font-extrabold text-white bg-[#6366F1] hover:bg-indigo-500 transition-colors shadow-md shadow-indigo-500/20"
                 >
                   Launch Study Dashboard
                 </button>

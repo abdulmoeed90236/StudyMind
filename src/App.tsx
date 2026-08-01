@@ -20,16 +20,6 @@ export default function App() {
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('signup');
   const [selectedPlanName, setSelectedPlanName] = useState<string | undefined>(undefined);
   const [demoModalOpen, setDemoModalOpen] = useState<boolean>(false);
-  
-  const [currentTheme, setCurrentTheme] = useState<ThemeMode>(() => {
-    const saved = localStorage.getItem('studymind_theme') as ThemeMode;
-    return saved || 'emerald-matrix';
-  });
-
-  useEffect(() => {
-    localStorage.setItem('studymind_theme', currentTheme);
-    document.documentElement.className = `theme-${currentTheme}`;
-  }, [currentTheme]);
 
   const handleOpenAuth = (mode: 'login' | 'signup' = 'signup', planName?: string) => {
     setAuthMode(mode);
@@ -53,7 +43,7 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen w-full overflow-x-hidden theme-${currentTheme} font-sans transition-colors duration-500`}>
+    <div className="min-h-screen w-full overflow-x-hidden bg-[#0F172A] text-[#F8FAFC] font-sans">
       {/* Sticky Navigation Bar */}
       <Navbar
         currentPage={currentPage}
@@ -71,22 +61,22 @@ export default function App() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="bg-zinc-950/80 border-b border-emerald-500/20 py-4 px-4 sm:px-6 lg:px-8 shadow-inner"
+              className="bg-[#1E293B]/80 border-b border-[#334155] py-4 px-4 sm:px-6 lg:px-8 backdrop-blur-md shadow-sm"
             >
               <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-                <div className="flex items-center gap-2 text-xs font-semibold text-slate-400">
+                <div className="flex items-center gap-2 text-xs font-semibold text-[#94A3B8]">
                   <button
                     onClick={() => {
                       setCurrentPage('home');
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className="flex items-center gap-1.5 text-slate-400 hover:text-emerald-400 transition-colors"
+                    className="flex items-center gap-1.5 text-[#94A3B8] hover:text-[#6366F1] transition-colors"
                   >
                     <Home className="w-3.5 h-3.5" />
                     <span>Home</span>
                   </button>
                   <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
-                  <span className="text-emerald-400 font-bold">{pageTitleMap[currentPage]}</span>
+                  <span className="text-[#6366F1] font-bold">{pageTitleMap[currentPage]}</span>
                 </div>
 
                 <button
@@ -94,9 +84,9 @@ export default function App() {
                     setCurrentPage('home');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 border border-emerald-500/30 text-xs font-bold text-slate-300 hover:text-white hover:bg-zinc-800 transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#0F172A] border border-[#334155] text-xs font-bold text-slate-300 hover:text-white hover:border-[#6366F1]/50 transition-all"
                 >
-                  <ArrowLeft className="w-3.5 h-3.5 text-emerald-400" />
+                  <ArrowLeft className="w-3.5 h-3.5 text-[#6366F1]" />
                   <span>Back to Overview</span>
                 </button>
               </div>
