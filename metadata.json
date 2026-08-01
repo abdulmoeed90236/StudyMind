@@ -1,0 +1,6 @@
+{
+  "name": "StudyMind AI",
+  "description": "Next-gen AI Study Assistant landing page featuring note summarization, smart flashcards, topic explainer, and 24/7 AI tutor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
