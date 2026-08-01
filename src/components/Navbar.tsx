@@ -31,9 +31,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, currentTheme, onThem
 
   const navLinks = [
     { name: 'Features', href: '#features' },
-    { name: 'How It Works', href: '#how-it-works' },
-    { name: 'Playground', href: '#playground' },
-    { name: 'Testimonials', href: '#testimonials' },
+    { name: 'Steps', href: '#how-it-works' },
+    { name: 'Sandbox', href: '#playground' },
+    { name: 'Reviews', href: '#testimonials' },
     { name: 'Pricing', href: '#pricing' },
     { name: 'FAQ', href: '#faq' },
   ];
@@ -167,15 +167,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, currentTheme, onThem
                 const nextIndex = (themesList.findIndex(t => t.id === currentTheme) + 1) % themesList.length;
                 onThemeChange(themesList[nextIndex].id);
               }}
-              className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white focus:outline-none"
+              className="p-2 rounded-lg bg-zinc-900 border border-emerald-500/30 text-slate-300 hover:text-white focus:outline-none"
               title="Toggle Theme"
             >
-              <Palette className="w-5 h-5 text-indigo-400" />
+              <Palette className="w-5 h-5 text-emerald-400" />
             </button>
             <button
               id="mobile-menu-toggle"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white focus:outline-none"
+              className="p-2 rounded-lg bg-zinc-900 border border-emerald-500/30 text-slate-300 hover:text-white focus:outline-none"
               aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -191,21 +191,21 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, currentTheme, onThem
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-slate-950/95 border-b border-slate-800/80 backdrop-blur-xl overflow-hidden px-4 pt-3 pb-6 shadow-2xl"
+            className="md:hidden bg-zinc-950/95 border-b border-emerald-500/30 backdrop-blur-xl overflow-hidden px-4 pt-3 pb-6 shadow-2xl"
           >
             <div className="flex flex-col gap-2 pt-2">
-              <div className="mb-2 p-2 bg-slate-900/80 rounded-lg border border-slate-800">
-                <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-2">Switch Theme</span>
+              <div className="mb-2 p-2.5 bg-zinc-900 rounded-xl border border-emerald-500/30">
+                <span className="text-[11px] font-bold text-emerald-400 uppercase tracking-wider block mb-2">Switch Theme</span>
                 <div className="grid grid-cols-2 gap-2">
                   {themesList.map((t) => (
                     <button
                       key={t.id}
                       onClick={() => onThemeChange(t.id)}
-                      className={`flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs text-left ${
-                        currentTheme === t.id ? 'bg-indigo-600 text-white font-semibold' : 'bg-slate-800/60 text-slate-300'
+                      className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-left ${
+                        currentTheme === t.id ? 'bg-emerald-500 text-black font-extrabold' : 'bg-zinc-950 text-slate-300 border border-emerald-500/20'
                       }`}
                     >
-                      <span className={`w-2 h-2 rounded-full ${t.color}`} />
+                      <span className={`w-2.5 h-2.5 rounded-full ${t.color}`} />
                       <span>{t.name}</span>
                     </button>
                   ))}
@@ -217,18 +217,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, currentTheme, onThem
                   key={link.name}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="text-sm font-medium text-slate-300 hover:text-indigo-400 py-2 px-3 rounded-md hover:bg-slate-900 transition-colors"
+                  className="text-sm font-semibold text-slate-300 hover:text-emerald-300 py-2.5 px-3 rounded-lg hover:bg-zinc-900 transition-colors"
                 >
                   {link.name}
                 </a>
               ))}
-              <div className="pt-4 border-t border-slate-800/80 flex flex-col gap-2.5">
+              <div className="pt-4 border-t border-emerald-950 flex flex-col gap-2.5">
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
                     onOpenAuth('login');
                   }}
-                  className="w-full py-2.5 text-center text-sm font-semibold text-slate-200 bg-slate-900 border border-slate-800 rounded-lg hover:bg-slate-800 transition-colors"
+                  className="w-full py-2.5 text-center text-sm font-bold text-slate-200 bg-zinc-900 border border-emerald-500/30 rounded-xl hover:bg-zinc-800 transition-colors"
                 >
                   Log In
                 </button>
@@ -237,9 +237,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, currentTheme, onThem
                     setMobileMenuOpen(false);
                     onOpenAuth('signup');
                   }}
-                  className="w-full py-2.5 text-center text-sm font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg shadow-lg shadow-indigo-600/30 hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+                  className="w-full py-2.5 text-center text-sm font-extrabold text-black bg-emerald-400 hover:bg-emerald-300 rounded-xl shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center gap-2"
                 >
-                  <Sparkles className="w-4 h-4 text-indigo-200" />
+                  <Sparkles className="w-4 h-4 text-black" />
                   Get Started Free
                 </button>
               </div>
