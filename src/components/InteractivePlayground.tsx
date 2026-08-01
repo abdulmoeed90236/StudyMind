@@ -101,7 +101,7 @@ export const InteractivePlayground: React.FC<InteractivePlaygroundProps> = ({ on
             </div>
 
             {/* Action Toggles */}
-            <div className="flex items-center gap-1 bg-zinc-900 p-1 rounded-xl border border-emerald-500/20">
+            <div className="flex flex-wrap items-center gap-1 bg-zinc-900 p-1 rounded-xl border border-emerald-500/20">
               <button
                 onClick={() => {
                   setActiveAction('summary');

@@ -161,15 +161,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAuth, onOpenDemo }) => {
               </div>
 
               {/* Sample Topic Selector */}
-              <div className="flex items-center gap-1.5 bg-zinc-950 border border-emerald-500/30 rounded-lg p-1">
-                <span className="text-[10px] text-slate-400 uppercase tracking-wider px-2 font-medium hidden xs:inline">
-                  Select Topic:
+              <div className="flex flex-wrap items-center gap-1 bg-zinc-950 border border-emerald-500/30 rounded-lg p-1">
+                <span className="text-[10px] text-slate-400 uppercase tracking-wider px-1.5 font-medium hidden sm:inline">
+                  Topic:
                 </span>
                 {SAMPLE_STUDY_NOTES.map((item, idx) => (
                   <button
                     key={item.id}
                     onClick={() => setSampleIndex(idx)}
-                    className={`text-xs px-2.5 py-1 rounded-md font-semibold transition-colors ${
+                    className={`text-[11px] sm:text-xs px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md font-semibold transition-colors ${
                       sampleIndex === idx
                         ? 'bg-emerald-500 text-black shadow-sm'
                         : 'text-slate-400 hover:text-slate-200'
@@ -182,53 +182,53 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAuth, onOpenDemo }) => {
             </div>
 
             {/* Interactive Feature Tabs */}
-            <div className="flex flex-wrap items-center gap-1.5 mb-4 p-1 bg-zinc-950 rounded-xl border border-emerald-500/30">
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-1.5 mb-4 p-1 bg-zinc-950 rounded-xl border border-emerald-500/30">
               <button
                 onClick={() => setActiveTab('summary')}
-                className={`flex-1 min-w-[120px] flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-bold transition-all ${
+                className={`flex items-center justify-center gap-1.5 py-2 px-2 sm:px-3 rounded-lg text-xs font-bold transition-all ${
                   activeTab === 'summary'
                     ? 'bg-emerald-500 text-black shadow-md shadow-emerald-500/30'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-zinc-900'
                 }`}
               >
-                <FileText className="w-3.5 h-3.5" />
-                <span>Instant Summary</span>
+                <FileText className="w-3.5 h-3.5 shrink-0" />
+                <span className="truncate">Summary</span>
               </button>
 
               <button
                 onClick={() => setActiveTab('explain')}
-                className={`flex-1 min-w-[120px] flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-bold transition-all ${
+                className={`flex items-center justify-center gap-1.5 py-2 px-2 sm:px-3 rounded-lg text-xs font-bold transition-all ${
                   activeTab === 'explain'
                     ? 'bg-emerald-500 text-black shadow-md shadow-emerald-500/30'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-zinc-900'
                 }`}
               >
-                <Lightbulb className="w-3.5 h-3.5" />
-                <span>Explain Like I'm 5</span>
+                <Lightbulb className="w-3.5 h-3.5 shrink-0" />
+                <span className="truncate">Explain (ELI5)</span>
               </button>
 
               <button
                 onClick={() => setActiveTab('flashcards')}
-                className={`flex-1 min-w-[120px] flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-bold transition-all ${
+                className={`flex items-center justify-center gap-1.5 py-2 px-2 sm:px-3 rounded-lg text-xs font-bold transition-all ${
                   activeTab === 'flashcards'
                     ? 'bg-emerald-500 text-black shadow-md shadow-emerald-500/30'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-zinc-900'
                 }`}
               >
-                <Layers className="w-3.5 h-3.5" />
-                <span>Smart Flashcards</span>
+                <Layers className="w-3.5 h-3.5 shrink-0" />
+                <span className="truncate">Flashcards</span>
               </button>
 
               <button
                 onClick={() => setActiveTab('tutor')}
-                className={`flex-1 min-w-[120px] flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-bold transition-all ${
+                className={`flex items-center justify-center gap-1.5 py-2 px-2 sm:px-3 rounded-lg text-xs font-bold transition-all ${
                   activeTab === 'tutor'
                     ? 'bg-emerald-500 text-black shadow-md shadow-emerald-500/30'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-zinc-900'
                 }`}
               >
-                <Bot className="w-3.5 h-3.5" />
-                <span>24/7 AI Tutor</span>
+                <Bot className="w-3.5 h-3.5 shrink-0" />
+                <span className="truncate">AI Tutor</span>
               </button>
             </div>
 

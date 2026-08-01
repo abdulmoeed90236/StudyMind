@@ -43,7 +43,7 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen theme-${currentTheme} font-sans transition-colors duration-500`}>
+    <div className={`min-h-screen w-full overflow-x-hidden theme-${currentTheme} font-sans transition-colors duration-500`}>
       {/* Sticky Navigation Bar */}
       <Navbar
         onOpenAuth={(mode) => handleOpenAuth(mode)}
