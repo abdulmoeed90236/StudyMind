@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Brain, Menu, X, ArrowRight } from 'lucide-react';
-import { ThemeMode } from '../types';
+import { Brain, Menu, X, ArrowRight, Home } from 'lucide-react';
+import { PageId, ThemeMode } from '../types';
+
+export type { PageId };
 
 interface NavbarProps {
+  currentPage: PageId;
+  onPageChange: (page: PageId) => void;
   onOpenAuth: (mode: 'login' | 'signup') => void;
-  currentTheme?: ThemeMode;
-  onThemeChange?: (theme: ThemeMode) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth }) => {
+export const Navbar: React.FC<NavbarProps> = ({ currentPage, onPageChange, onOpenAuth }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -33,22 +35,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth }) => {
     };
   }, [mobileMenuOpen]);
 
-  const navLinks = [
-    { name: 'Features', href: '#features' },
-    { name: 'Steps', href: '#how-it-works' },
-    { name: 'Sandbox', href: '#playground' },
-    { name: 'Reviews', href: '#testimonials' },
-    { name: 'Pricing', href: '#pricing' },
-    { name: 'FAQ', href: '#faq' },
+  const navLinks: { name: string; id: PageId }[] = [
+    { name: 'Home', id: 'home' },
+    { name: 'Features', id: 'features' },
+    { name: 'Steps', id: 'how-it-works' },
+    { name: 'Sandbox', id: 'playground' },
+    { name: 'Reviews', id: 'testimonials' },
+    { name: 'Pricing', id: 'pricing' },
+    { name: 'FAQ', id: 'faq' },
   ];
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
+  const handleNavClick = (id: PageId) => {
     setMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    onPageChange(id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -63,9 +63,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth }) => {
       <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-2 sm:gap-4">
           {/* Brand Logo */}
-          <a
-            href="#"
-            className="flex items-center gap-2 shrink-0 group focus:outline-none"
+          <button
+            onClick={() => handleNavClick('home')}
+            className="flex items-center gap-2 shrink-0 group focus:outline-none text-left"
           >
             <div className="relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-400 p-0.5 shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform duration-300">
               <div className="w-full h-full bg-zinc-950 rounded-[10px] flex items-center justify-center">
@@ -80,19 +80,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth }) => {
                 Academic Copilot
               </span>
             </div>
-          </a>
+          </button>
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-1 bg-zinc-950/80 border border-emerald-500/20 px-3 py-1 rounded-full backdrop-blur-md shadow-inner">
             {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className="text-xs font-bold text-slate-300 hover:text-emerald-300 px-3 py-1.5 rounded-full hover:bg-emerald-950/40 transition-all duration-200 whitespace-nowrap"
+              <button
+                key={link.id}
+                onClick={() => handleNavClick(link.id)}
+                className={`text-xs font-bold px-3 py-1.5 rounded-full transition-all duration-200 whitespace-nowrap ${
+                  currentPage === link.id
+                    ? 'bg-emerald-400 text-black shadow-md shadow-emerald-500/20 font-extrabold'
+                    : 'text-slate-300 hover:text-emerald-300 hover:bg-emerald-950/40'
+                }`}
               >
                 {link.name}
-              </a>
+              </button>
             ))}
           </nav>
 
@@ -145,15 +148,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth }) => {
                   Navigation
                 </span>
                 {navLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
-                    className="text-sm font-bold text-slate-200 hover:text-emerald-400 py-3 px-3 rounded-xl hover:bg-zinc-900 transition-colors flex items-center justify-between"
+                  <button
+                    key={link.id}
+                    onClick={() => handleNavClick(link.id)}
+                    className={`text-sm font-bold py-3 px-3 rounded-xl transition-colors flex items-center justify-between text-left ${
+                      currentPage === link.id
+                        ? 'bg-emerald-400 text-black font-extrabold'
+                        : 'text-slate-200 hover:text-emerald-400 hover:bg-zinc-900'
+                    }`}
                   >
                     <span>{link.name}</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-emerald-400/60" />
-                  </a>
+                    <ArrowRight className={`w-3.5 h-3.5 ${currentPage === link.id ? 'text-black' : 'text-emerald-400/60'}`} />
+                  </button>
                 ))}
               </div>
 

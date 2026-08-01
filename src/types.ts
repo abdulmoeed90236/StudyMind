@@ -1,5 +1,7 @@
 export type ThemeMode = 'emerald-matrix' | 'pitch-black' | 'mint-cyberpunk' | 'clean-white';
 
+export type PageId = 'home' | 'features' | 'how-it-works' | 'playground' | 'testimonials' | 'pricing' | 'faq';
+
 export interface Testimonial {
   id: string;
   name: string;
