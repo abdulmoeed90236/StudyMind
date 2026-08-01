@@ -31,15 +31,15 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAuth }) => {
             <p className="text-[10px] text-[#94A3B8]">
               Supports files up to 500MB • Drag & drop or click to browse
             </p>
-            <div className="flex justify-center gap-2 mt-4">
-              <span className="text-[10px] bg-[#1E293B] border border-[#334155] text-slate-300 px-2 py-1 rounded-lg flex items-center gap-1">
-                <FileUp className="w-3 h-3 text-[#6366F1]" /> Bio_Lecture_Ch4.pdf
+            <div className="flex flex-wrap justify-center gap-2 mt-4 max-w-full">
+              <span className="text-[10px] bg-[#1E293B] border border-[#334155] text-slate-300 px-2 py-1 rounded-lg flex items-center gap-1 max-w-full truncate">
+                <FileUp className="w-3 h-3 text-[#6366F1] shrink-0" /> <span className="truncate">Bio_Lecture_Ch4.pdf</span>
               </span>
-              <span className="text-[10px] bg-[#1E293B] border border-[#334155] text-slate-300 px-2 py-1 rounded-lg flex items-center gap-1">
-                <Mic className="w-3 h-3 text-[#6366F1]" /> Audio_Rec_12.mp3
+              <span className="text-[10px] bg-[#1E293B] border border-[#334155] text-slate-300 px-2 py-1 rounded-lg flex items-center gap-1 max-w-full truncate">
+                <Mic className="w-3 h-3 text-[#6366F1] shrink-0" /> <span className="truncate">Audio_Rec_12.mp3</span>
               </span>
-              <span className="text-[10px] bg-[#1E293B] border border-[#334155] text-slate-300 px-2 py-1 rounded-lg flex items-center gap-1">
-                <ImageIcon className="w-3 h-3 text-[#6366F1]" /> Whiteboard.png
+              <span className="text-[10px] bg-[#1E293B] border border-[#334155] text-slate-300 px-2 py-1 rounded-lg flex items-center gap-1 max-w-full truncate">
+                <ImageIcon className="w-3 h-3 text-[#6366F1] shrink-0" /> <span className="truncate">Whiteboard.png</span>
               </span>
             </div>
           </div>
@@ -58,29 +58,29 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAuth }) => {
         'AI Exam Question Predictor'
       ],
       previewContent: (
-        <div className="space-y-2 p-4 bg-[#0F172A] rounded-xl border border-[#334155]">
-          <div className="p-3 bg-[#6366F1]/20 border border-[#6366F1]/40 rounded-xl flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#818CF8]" />
-              <span className="text-xs font-bold text-white">Generate Executive Summary</span>
+        <div className="space-y-2 p-3 sm:p-4 bg-[#0F172A] rounded-xl border border-[#334155] max-w-full overflow-hidden">
+          <div className="p-3 bg-[#6366F1]/20 border border-[#6366F1]/40 rounded-xl flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center gap-2 min-w-0">
+              <Sparkles className="w-4 h-4 text-[#818CF8] shrink-0" />
+              <span className="text-xs font-bold text-white truncate">Generate Executive Summary</span>
             </div>
-            <span className="text-[10px] bg-[#6366F1] text-white px-2 py-0.5 rounded font-extrabold">Selected</span>
+            <span className="text-[10px] bg-[#6366F1] text-white px-2 py-0.5 rounded font-extrabold shrink-0">Selected</span>
           </div>
 
-          <div className="p-3 bg-[#1E293B] border border-[#334155] rounded-xl flex items-center justify-between opacity-80 hover:opacity-100">
-            <div className="flex items-center gap-2">
-              <Zap className="w-4 h-4 text-[#6366F1]" />
-              <span className="text-xs font-bold text-[#F8FAFC]">Explain Complex Concepts (ELI5)</span>
+          <div className="p-3 bg-[#1E293B] border border-[#334155] rounded-xl flex flex-wrap items-center justify-between gap-2 opacity-80 hover:opacity-100">
+            <div className="flex items-center gap-2 min-w-0">
+              <Zap className="w-4 h-4 text-[#6366F1] shrink-0" />
+              <span className="text-xs font-bold text-[#F8FAFC] truncate">Explain Complex Concepts (ELI5)</span>
             </div>
-            <span className="text-[10px] text-[#94A3B8]">Available</span>
+            <span className="text-[10px] text-[#94A3B8] shrink-0">Available</span>
           </div>
 
-          <div className="p-3 bg-[#1E293B] border border-[#334155] rounded-xl flex items-center justify-between opacity-80 hover:opacity-100">
-            <div className="flex items-center gap-2">
-              <Trophy className="w-4 h-4 text-[#6366F1]" />
-              <span className="text-xs font-bold text-[#F8FAFC]">Build Spaced Flashcard Deck</span>
+          <div className="p-3 bg-[#1E293B] border border-[#334155] rounded-xl flex flex-wrap items-center justify-between gap-2 opacity-80 hover:opacity-100">
+            <div className="flex items-center gap-2 min-w-0">
+              <Trophy className="w-4 h-4 text-[#6366F1] shrink-0" />
+              <span className="text-xs font-bold text-[#F8FAFC] truncate">Build Spaced Flashcard Deck</span>
             </div>
-            <span className="text-[10px] text-[#94A3B8]">Available</span>
+            <span className="text-[10px] text-[#94A3B8] shrink-0">Available</span>
           </div>
         </div>
       )
@@ -97,12 +97,12 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAuth }) => {
         'Sync Across Desktop & Mobile'
       ],
       previewContent: (
-        <div className="p-5 bg-[#1E293B] rounded-xl border border-[#10B981]/30 space-y-3">
-          <div className="flex items-center justify-between">
+        <div className="p-4 sm:p-5 bg-[#1E293B] rounded-xl border border-[#10B981]/30 space-y-3 max-w-full overflow-hidden">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="text-xs font-bold text-[#10B981] flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4" /> Exam Mastery Status: 98%
+              <CheckCircle2 className="w-4 h-4 shrink-0" /> Exam Mastery Status: 98%
             </span>
-            <span className="text-[10px] bg-[#10B981]/20 text-[#10B981] px-2 py-0.5 rounded-full font-bold">
+            <span className="text-[10px] bg-[#10B981]/20 text-[#10B981] px-2 py-0.5 rounded-full font-bold shrink-0">
               Ready for Finals
             </span>
           </div>
@@ -192,24 +192,24 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAuth }) => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4 }}
-              className="glass-card rounded-2xl border border-[#334155] p-6 sm:p-8 bg-[#1E293B] relative overflow-hidden shadow-2xl"
+              className="glass-card rounded-2xl border border-[#334155] p-4 sm:p-6 lg:p-8 bg-[#1E293B] relative overflow-hidden shadow-2xl max-w-full"
             >
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#334155]">
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-[#0F172A] border border-[#334155]">
+              <div className="flex flex-wrap items-center justify-between pb-4 mb-4 border-b border-[#334155] gap-3">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="p-2.5 rounded-xl bg-[#0F172A] border border-[#334155] shrink-0">
                     {steps[activeStep - 1].icon}
                   </div>
-                  <div>
-                    <span className="text-[10px] uppercase tracking-wider text-[#818CF8] font-bold block">
+                  <div className="min-w-0">
+                    <span className="text-[10px] uppercase tracking-wider text-[#818CF8] font-bold block truncate">
                       STEP {activeStep} PREVIEW
                     </span>
-                    <h4 className="text-base font-bold text-[#F8FAFC]">
+                    <h4 className="text-sm sm:text-base font-bold text-[#F8FAFC] truncate">
                       {steps[activeStep - 1].title}
                     </h4>
                   </div>
                 </div>
 
-                <div className="flex gap-1.5">
+                <div className="flex gap-1.5 shrink-0">
                   {[1, 2, 3].map((num) => (
                     <div
                       key={num}
@@ -225,7 +225,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAuth }) => {
               {/* Dynamic Step Visual Content */}
               {steps[activeStep - 1].previewContent}
 
-              <div className="mt-6 pt-4 border-t border-[#334155] flex items-center justify-between">
+              <div className="mt-6 pt-4 border-t border-[#334155] flex flex-wrap items-center justify-between gap-3">
                 <button
                   onClick={() => setActiveStep(activeStep === 3 ? 1 : activeStep + 1)}
                   className="text-xs font-bold text-[#94A3B8] hover:text-[#6366F1] flex items-center gap-1.5"

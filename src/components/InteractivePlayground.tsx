@@ -71,12 +71,12 @@ export const InteractivePlayground: React.FC<InteractivePlaygroundProps> = ({ on
         {/* Playground Container */}
         <div className="glass-card rounded-2xl border border-[#334155] p-4 sm:p-6 shadow-2xl bg-[#1E293B]">
           {/* Top Control Bar: Subject Selection */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pb-4 mb-4 border-b border-[#334155]">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#818CF8]">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pb-4 mb-4 border-b border-[#334155] max-w-full overflow-hidden">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 min-w-0">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#818CF8] shrink-0">
                 Preset Subjects:
               </span>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 max-w-full">
                 {SAMPLE_STUDY_NOTES.map((sample) => (
                   <button
                     key={sample.id}
@@ -85,23 +85,23 @@ export const InteractivePlayground: React.FC<InteractivePlaygroundProps> = ({ on
                       setCustomInputText('');
                       handleRunAi();
                     }}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all truncate max-w-full ${
                       selectedSubjectId === sample.id && !customInputText
                         ? 'bg-[#6366F1] text-white shadow-md shadow-indigo-500/30'
                         : 'bg-[#0F172A] border border-[#334155] text-[#94A3B8] hover:text-white'
                     }`}
                   >
-                    {sample.subject === 'Neuroscience' && <Brain className="w-3.5 h-3.5 text-[#6366F1]" />}
-                    {sample.subject === 'Chemistry' && <FlaskConical className="w-3.5 h-3.5 text-[#6366F1]" />}
-                    {sample.subject === 'Computer Science' && <Code2 className="w-3.5 h-3.5 text-[#6366F1]" />}
-                    <span>{sample.subject}</span>
+                    {sample.subject === 'Neuroscience' && <Brain className="w-3.5 h-3.5 text-[#6366F1] shrink-0" />}
+                    {sample.subject === 'Chemistry' && <FlaskConical className="w-3.5 h-3.5 text-[#6366F1] shrink-0" />}
+                    {sample.subject === 'Computer Science' && <Code2 className="w-3.5 h-3.5 text-[#6366F1] shrink-0" />}
+                    <span className="truncate">{sample.subject}</span>
                   </button>
                 ))}
               </div>
             </div>
 
             {/* Action Toggles */}
-            <div className="grid grid-cols-2 xs:grid-cols-2 sm:flex sm:flex-wrap items-center gap-1 bg-[#0F172A] p-1 rounded-xl border border-[#334155]">
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-1 bg-[#0F172A] p-1 rounded-xl border border-[#334155] max-w-full">
               <button
                 onClick={() => {
                   setActiveAction('summary');

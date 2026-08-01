@@ -28,11 +28,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAuth, onOpenDemo }) => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1E293B] border border-[#334155] text-[#818CF8] text-xs font-bold shadow-lg shadow-indigo-950/40 mb-6 glow-border"
+            className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-[#1E293B] border border-[#334155] text-[#818CF8] text-xs font-bold shadow-lg shadow-indigo-950/40 mb-6 glow-border max-w-full text-center"
           >
-            <Zap className="w-3.5 h-3.5 text-[#6366F1]" />
-            <span>Next-Gen Academic Copilot for Students</span>
-            <span className="bg-[#6366F1]/20 text-[#a5b4fc] px-2 py-0.5 rounded-full text-[10px] uppercase font-extrabold border border-[#6366F1]/40">
+            <Zap className="w-3.5 h-3.5 text-[#6366F1] shrink-0" />
+            <span className="truncate">Next-Gen Academic Copilot for Students</span>
+            <span className="bg-[#6366F1]/20 text-[#a5b4fc] px-2 py-0.5 rounded-full text-[10px] uppercase font-extrabold border border-[#6366F1]/40 shrink-0">
               v2.5 Live
             </span>
           </motion.div>
