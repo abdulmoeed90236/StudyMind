@@ -52,8 +52,11 @@ export const QuantumCanvas3D: React.FC<QuantumCanvas3DProps> = ({ interactive = 
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
+    // Detect mobile viewport to optimize 3D particle performance
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
     // 1. SOFT ROUND GLOWING PARTICLES (No square boxes)
-    const particleCount = 140;
+    const particleCount = isMobile ? 50 : 140;
     const particleGeometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
@@ -83,7 +86,7 @@ export const QuantumCanvas3D: React.FC<QuantumCanvas3DProps> = ({ interactive = 
     const glowTexture = createGlowParticleTexture();
 
     const pMaterial = new THREE.PointsMaterial({
-      size: 2.2,
+      size: isMobile ? 2.8 : 2.2,
       map: glowTexture || undefined,
       vertexColors: true,
       transparent: true,
@@ -96,7 +99,7 @@ export const QuantumCanvas3D: React.FC<QuantumCanvas3DProps> = ({ interactive = 
     scene.add(particles);
 
     // 2. QUANTUM NEURAL CONSTELLATION LINES
-    const maxConnections = 80;
+    const maxConnections = isMobile ? 30 : 80;
     const linePositions = new Float32Array(maxConnections * 2 * 3);
     const lineGeometry = new THREE.BufferGeometry();
     lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));

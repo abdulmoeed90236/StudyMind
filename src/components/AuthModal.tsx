@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, ArrowRight, CheckCircle2, Lock, Mail, GraduationCap, Brain } from 'lucide-react';
+import { X, ArrowRight, CheckCircle2, Lock, Mail, GraduationCap, Brain, Eye, EyeOff, Loader2 } from 'lucide-react';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -20,12 +20,19 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [mode, setMode] = useState<'login' | 'signup'>(initialMode);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [university, setUniversity] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   if (!isOpen) return null;
+
+  const handleSwitchMode = (newMode: 'login' | 'signup') => {
+    setMode(newMode);
+    setErrorMsg('');
+    setShowPassword(false);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,7 +44,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, university }),
+        body: JSON.stringify({ email: email.trim(), password, university }),
       });
 
       const data = await res.json();
@@ -47,14 +54,15 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
       if (data.token) {
         localStorage.setItem('quantum_token', data.token);
-        if (data.user?.email) {
-          localStorage.setItem('quantum_user_email', data.user.email);
+        const userEmail = data.user?.email || email.trim();
+        if (userEmail) {
+          localStorage.setItem('quantum_user_email', userEmail);
         }
       }
 
       setSubmitted(true);
-      if (onSuccess && email) {
-        onSuccess(email);
+      if (onSuccess && (data.user?.email || email)) {
+        onSuccess(data.user?.email || email);
       }
     } catch (err: any) {
       console.error('Auth Error:', err);
@@ -111,12 +119,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 </p>
               </div>
 
-
-
               {/* Error Alert */}
               {errorMsg && (
-                <div className="mb-4 p-3 rounded-xl bg-red-950/60 border border-red-500/40 text-red-200 text-xs font-mono">
-                  {errorMsg}
+                <div className="mb-4 p-3 rounded-xl bg-red-950/80 border border-red-500/50 text-red-200 text-xs font-mono flex items-start gap-2">
+                  <span className="shrink-0 text-red-400 font-bold">⚠️</span>
+                  <span>{errorMsg}</span>
                 </div>
               )}
 
@@ -134,7 +141,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                         value={university}
                         onChange={(e) => setUniversity(e.target.value)}
                         placeholder="e.g. Stanford University"
-                        className="w-full bg-[#040914] border border-amber-500/30 rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                        className="w-full bg-[#040914] border border-amber-500/30 rounded-xl pl-9 pr-3 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
                       />
                     </div>
                   </div>
@@ -152,7 +159,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="alex@university.edu"
-                      className="w-full bg-[#040914] border border-amber-500/30 rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                      className="w-full bg-[#040914] border border-amber-500/30 rounded-xl pl-9 pr-3 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
                     />
                   </div>
                 </div>
@@ -164,22 +171,45 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   <div className="relative">
                     <Lock className="w-4 h-4 text-amber-400 absolute left-3 top-3" />
                     <input
-                      type="password"
+                      type={showPassword ? 'text' : 'password'}
                       required
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••••••"
-                      className="w-full bg-[#040914] border border-amber-500/30 rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                      className="w-full bg-[#040914] border border-amber-500/30 rounded-xl pl-9 pr-10 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
                     />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-2.5 text-zinc-400 hover:text-amber-300 p-1 rounded transition-colors focus:outline-none"
+                      title={showPassword ? 'Hide Password' : 'Show Password'}
+                      aria-label={showPassword ? 'Hide Password' : 'Show Password'}
+                    >
+                      {showPassword ? (
+                        <EyeOff className="w-4 h-4 text-amber-400" />
+                      ) : (
+                        <Eye className="w-4 h-4 text-zinc-400 hover:text-amber-300" />
+                      )}
+                    </button>
                   </div>
                 </div>
 
                 <button
                   type="submit"
-                  className="btn-quantum-gold w-full py-3 mt-2 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2"
+                  disabled={loading}
+                  className="btn-quantum-gold w-full py-3 mt-2 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  <span>{mode === 'signup' ? 'Create Free Account' : 'Sign In Now'}</span>
-                  <ArrowRight className="w-4 h-4 text-slate-950" />
+                  {loading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 text-slate-950 animate-spin" />
+                      <span>Authenticating...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>{mode === 'signup' ? 'Create Free Account' : 'Sign In Now'}</span>
+                      <ArrowRight className="w-4 h-4 text-slate-950" />
+                    </>
+                  )}
                 </button>
               </form>
 
@@ -189,8 +219,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   <p>
                     Already have an account?{' '}
                     <button
-                      onClick={() => setMode('login')}
-                      className="text-amber-300 font-bold uppercase tracking-wider hover:underline"
+                      type="button"
+                      onClick={() => handleSwitchMode('login')}
+                      className="text-amber-300 font-bold uppercase tracking-wider hover:underline ml-1"
                     >
                       Log In
                     </button>
@@ -199,8 +230,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   <p>
                     New to StudyMind AI?{' '}
                     <button
-                      onClick={() => setMode('signup')}
-                      className="text-amber-300 font-bold uppercase tracking-wider hover:underline"
+                      type="button"
+                      onClick={() => handleSwitchMode('signup')}
+                      className="text-amber-300 font-bold uppercase tracking-wider hover:underline ml-1"
                     >
                       Sign Up Free
                     </button>

@@ -38,4 +38,4 @@ const NoteSchema = new Schema<INote>({
   createdAt: { type: Date, default: Date.now },
 });
 
-export const Note = mongoose.models.Note || mongoose.model<INote>('Note', NoteSchema);
+export const Note = (mongoose.models.Note || mongoose.model<INote>('Note', NoteSchema)) as mongoose.Model<INote>;

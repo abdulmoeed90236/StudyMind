@@ -27,8 +27,9 @@ export const QuantumBrain3D: React.FC = () => {
     container.appendChild(renderer.domElement);
 
     // Create 3D Brain shape with mathematical point clusters
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const brainGroup = new THREE.Group();
-    const count = 350;
+    const count = isMobile ? 160 : 350;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
