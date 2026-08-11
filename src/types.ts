@@ -1,6 +1,14 @@
 export type ThemeMode = 'emerald-matrix' | 'pitch-black' | 'mint-cyberpunk' | 'clean-white';
 
-export type PageId = 'home' | 'features' | 'how-it-works' | 'playground' | 'testimonials' | 'pricing' | 'faq';
+export type PageId = 'home' | 'features' | 'how-it-works' | 'playground' | 'testimonials' | 'pricing' | 'faq' | 'dashboard';
+
+export interface UserSession {
+  userId?: string;
+  email: string;
+  university?: string;
+  plan?: string;
+  token?: string;
+}
 
 export interface Testimonial {
   id: string;

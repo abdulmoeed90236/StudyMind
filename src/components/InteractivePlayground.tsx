@@ -25,17 +25,35 @@ export const InteractivePlayground: React.FC<InteractivePlaygroundProps> = ({ on
     }, 600);
   };
 
-  const handleAskTutor = (e: React.FormEvent) => {
+  const handleAskTutor = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!userQuestion.trim()) return;
 
+    const currentQ = userQuestion;
+    setUserQuestion('');
     setIsProcessing(true);
-    setTimeout(() => {
-      const newAnswer = `Based on your course notes for ${currentSample.subject}: "${userQuestion}" relates directly to ${currentSample.summary.coreFormulasOrTerms[0] || 'core concepts'}. Key factor: ${currentSample.summary.keyTakeaways[0] || 'See lecture summary'}.`;
-      setCustomTutorChat([...customTutorChat, { q: userQuestion, a: newAnswer }]);
-      setUserQuestion('');
+
+    try {
+      const res = await fetch('/api/ai/tutor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          subject: currentSample.subject,
+          rawText: customInputText || currentSample.rawText,
+          question: currentQ,
+        }),
+      });
+
+      const data = await res.json();
+      const answer = data.answer || `Based on your ${currentSample.subject} course notes: "${currentQ}" relates to key concepts in your syllabus.`;
+      setCustomTutorChat((prev) => [...prev, { q: currentQ, a: answer }]);
+    } catch (err) {
+      console.error('Tutor API Error:', err);
+      const fallbackAnswer = `Based on your course notes for ${currentSample.subject}: "${currentQ}" relates directly to ${currentSample.summary.coreFormulasOrTerms[0] || 'core concepts'}. Key factor: ${currentSample.summary.keyTakeaways[0] || 'See lecture summary'}.`;
+      setCustomTutorChat((prev) => [...prev, { q: currentQ, a: fallbackAnswer }]);
+    } finally {
       setIsProcessing(false);
-    }, 500);
+    }
   };
 
   const handleCopy = (text: string) => {

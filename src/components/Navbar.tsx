@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Brain, Menu, X, ArrowRight, Sparkles, Cpu } from 'lucide-react';
-import { PageId } from '../types';
+import { Brain, Menu, X, ArrowRight, Sparkles, Cpu, LayoutDashboard, LogOut, ShieldCheck } from 'lucide-react';
+import { PageId, UserSession } from '../types';
 
 export type { PageId };
 
@@ -9,9 +9,21 @@ interface NavbarProps {
   currentPage: PageId;
   onPageChange: (page: PageId) => void;
   onOpenAuth: (mode: 'login' | 'signup') => void;
+  isAuthenticated?: boolean;
+  userSession?: UserSession | null;
+  onLogout?: () => void;
+  onNavigateDashboard?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ currentPage, onPageChange, onOpenAuth }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  currentPage,
+  onPageChange,
+  onOpenAuth,
+  isAuthenticated = false,
+  userSession,
+  onLogout,
+  onNavigateDashboard,
+}) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -44,9 +56,17 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onPageChange, onOpe
     { name: 'FAQ', id: 'faq', subtitle: 'Help Center' },
   ];
 
+  if (isAuthenticated) {
+    navLinks.unshift({ name: 'Dashboard', id: 'dashboard', subtitle: 'User Portal' });
+  }
+
   const handleNavClick = (id: PageId) => {
     setMobileMenuOpen(false);
-    onPageChange(id);
+    if (id === 'dashboard' && onNavigateDashboard) {
+      onNavigateDashboard();
+    } else {
+      onPageChange(id);
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -95,6 +115,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onPageChange, onOpe
                       : 'text-zinc-300 hover:text-amber-300 hover:bg-amber-500/10'
                   }`}
                 >
+                  {link.id === 'dashboard' && <LayoutDashboard className="w-3.5 h-3.5" />}
                   <span>{link.name}</span>
                   {isActive && <Sparkles className="w-3 h-3 text-slate-950" />}
                 </button>
@@ -104,21 +125,43 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onPageChange, onOpe
 
           {/* Right Action CTAs */}
           <div className="hidden md:flex items-center gap-2 sm:gap-3 shrink-0">
-            <button
-              id="nav-login-btn"
-              onClick={() => onOpenAuth('login')}
-              className="text-xs font-bold uppercase tracking-wider text-zinc-300 hover:text-amber-300 px-3 py-2 rounded-lg hover:bg-amber-500/10 transition-colors duration-200 whitespace-nowrap font-mono"
-            >
-              Sign In
-            </button>
-            <button
-              id="nav-get-started-btn"
-              onClick={() => onOpenAuth('signup')}
-              className="btn-quantum-gold inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wider whitespace-nowrap"
-            >
-              <span>Launch Free</span>
-              <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
-            </button>
+            {isAuthenticated ? (
+              <>
+                <button
+                  onClick={() => handleNavClick('dashboard')}
+                  className="btn-quantum-gold inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wider whitespace-nowrap"
+                >
+                  <LayoutDashboard className="w-4 h-4 text-slate-950" />
+                  <span>My Dashboard</span>
+                </button>
+                <button
+                  onClick={onLogout}
+                  className="text-xs font-bold uppercase tracking-wider text-zinc-400 hover:text-amber-300 px-3 py-2 rounded-lg hover:bg-amber-500/10 transition-colors duration-200 whitespace-nowrap font-mono flex items-center gap-1"
+                  title="Sign Out Session"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span>Sign Out</span>
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  id="nav-login-btn"
+                  onClick={() => onOpenAuth('login')}
+                  className="text-xs font-bold uppercase tracking-wider text-zinc-300 hover:text-amber-300 px-3 py-2 rounded-lg hover:bg-amber-500/10 transition-colors duration-200 whitespace-nowrap font-mono"
+                >
+                  Sign In
+                </button>
+                <button
+                  id="nav-get-started-btn"
+                  onClick={() => onOpenAuth('signup')}
+                  className="btn-quantum-gold inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wider whitespace-nowrap"
+                >
+                  <span>Launch Free</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
+                </button>
+              </>
+            )}
           </div>
 
           {/* Mobile Navigation Controls */}
@@ -174,25 +217,52 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onPageChange, onOpe
 
               {/* Mobile CTA Buttons */}
               <div className="pt-4 border-t border-amber-500/20 flex flex-col gap-2.5">
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenAuth('login');
-                  }}
-                  className="w-full py-3 text-center text-xs font-bold uppercase tracking-wider text-zinc-200 bg-[#081220] border border-amber-500/30 rounded-xl hover:bg-amber-500/10 transition-colors font-mono"
-                >
-                  Sign In
-                </button>
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenAuth('signup');
-                  }}
-                  className="btn-quantum-gold w-full py-3 text-center text-xs font-extrabold uppercase tracking-wider text-slate-950 rounded-xl flex items-center justify-center gap-2"
-                >
-                  <span>Get Started Free</span>
-                  <ArrowRight className="w-4 h-4 text-slate-950" />
-                </button>
+                {isAuthenticated ? (
+                  <>
+                    <button
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        if (onNavigateDashboard) onNavigateDashboard();
+                      }}
+                      className="btn-quantum-gold w-full py-3 text-center text-xs font-extrabold uppercase tracking-wider text-slate-950 rounded-xl flex items-center justify-center gap-2"
+                    >
+                      <LayoutDashboard className="w-4 h-4 text-slate-950" />
+                      <span>Go to Dashboard</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        if (onLogout) onLogout();
+                      }}
+                      className="w-full py-3 text-center text-xs font-bold uppercase tracking-wider text-red-300 bg-red-950/40 border border-red-500/30 rounded-xl hover:bg-red-900/30 transition-colors font-mono flex items-center justify-center gap-1.5"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      <span>Sign Out</span>
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        onOpenAuth('login');
+                      }}
+                      className="w-full py-3 text-center text-xs font-bold uppercase tracking-wider text-zinc-200 bg-[#081220] border border-amber-500/30 rounded-xl hover:bg-amber-500/10 transition-colors font-mono"
+                    >
+                      Sign In
+                    </button>
+                    <button
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        onOpenAuth('signup');
+                      }}
+                      className="btn-quantum-gold w-full py-3 text-center text-xs font-extrabold uppercase tracking-wider text-slate-950 rounded-xl flex items-center justify-center gap-2"
+                    >
+                      <span>Get Started Free</span>
+                      <ArrowRight className="w-4 h-4 text-slate-950" />
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>
