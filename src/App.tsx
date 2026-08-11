@@ -44,7 +44,13 @@ export default function App() {
             Authorization: `Bearer ${token}`,
           },
         });
-        const data = await res.json();
+        const text = await res.text();
+        let data: any = {};
+        try {
+          data = text ? JSON.parse(text) : {};
+        } catch {
+          data = { valid: false };
+        }
 
         if (data.valid) {
           setIsAuthenticated(true);

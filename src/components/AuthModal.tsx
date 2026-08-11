@@ -47,9 +47,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         body: JSON.stringify({ email: email.trim(), password, university }),
       });
 
-      const data = await res.json();
+      const text = await res.text();
+      let data: any = {};
+      try {
+        data = text ? JSON.parse(text) : {};
+      } catch {
+        throw new Error(`Server returned invalid response (Status ${res.status}). Please try again.`);
+      }
+
       if (!res.ok) {
-        throw new Error(data.error || 'Authentication failed');
+        throw new Error(data.error || `Authentication failed (${res.status})`);
       }
 
       if (data.token) {

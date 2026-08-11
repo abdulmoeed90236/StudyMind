@@ -341,6 +341,17 @@ async function startServer() {
     }
   });
 
+  // Catch-all 404 handler for /api/* routes so unhandled API endpoints never return HTML SPA pages
+  app.all("/api/*", (_req, res) => {
+    res.status(404).json({ error: "API endpoint not found" });
+  });
+
+  // Express Global JSON Error Handler
+  app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+    console.error("[Express Global Error]", err);
+    res.status(err.status || 500).json({ error: err.message || "Internal server error" });
+  });
+
   // VITE MIDDLEWARE FOR DEV / STATIC FOR PROD
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
