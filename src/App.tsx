@@ -43,7 +43,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-[#FBF9F5] text-[#2D2B2A] font-sans">
+    <div className="min-h-screen w-full overflow-x-hidden bg-[#06080C] text-white font-sans">
       {/* Sticky Navigation Bar */}
       <Navbar
         currentPage={currentPage}
@@ -61,22 +61,22 @@ export default function App() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="bg-[#FFFFFF]/80 border-b border-[#E6E1DA] py-4 px-4 sm:px-6 lg:px-8 backdrop-blur-md shadow-xs"
+              className="bg-[#040914]/90 border-b border-amber-500/20 py-4 px-4 sm:px-6 lg:px-8 backdrop-blur-md shadow-lg"
             >
               <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#736E65]">
+                <div className="flex items-center gap-2 text-xs font-mono font-bold text-zinc-400">
                   <button
                     onClick={() => {
                       setCurrentPage('home');
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className="flex items-center gap-1.5 text-[#736E65] hover:text-[#4A6B5D] transition-colors"
+                    className="flex items-center gap-1.5 text-zinc-300 hover:text-amber-300 transition-colors"
                   >
-                    <Home className="w-3.5 h-3.5" />
+                    <Home className="w-3.5 h-3.5 text-amber-400" />
                     <span>Home</span>
                   </button>
-                  <ChevronRight className="w-3.5 h-3.5 text-[#736E65]" />
-                  <span className="text-[#4A6B5D] font-bold">{pageTitleMap[currentPage]}</span>
+                  <ChevronRight className="w-3.5 h-3.5 text-zinc-500" />
+                  <span className="text-amber-400 font-bold uppercase tracking-wider">{pageTitleMap[currentPage]}</span>
                 </div>
 
                 <button
@@ -84,9 +84,9 @@ export default function App() {
                     setCurrentPage('home');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#FBF9F5] border border-[#E6E1DA] text-xs font-bold text-[#2D2B2A] hover:text-[#4A6B5D] hover:border-[#4A6B5D]/50 transition-all"
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#040914] border border-amber-500/30 text-xs font-mono font-bold uppercase tracking-wider text-zinc-200 hover:text-amber-300 hover:border-amber-400/50 transition-all"
                 >
-                  <ArrowLeft className="w-3.5 h-3.5 text-[#4A6B5D]" />
+                  <ArrowLeft className="w-3.5 h-3.5 text-amber-400" />
                   <span>Back to Overview</span>
                 </button>
               </div>

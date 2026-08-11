@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Upload, Sliders, Trophy, ArrowRight, CheckCircle2, Sparkles, FileUp, Mic, Image as ImageIcon, Zap } from 'lucide-react';
+import { Upload, Sliders, Trophy, ArrowRight, CheckCircle2, Sparkles, FileUp, Mic, Image as ImageIcon, Zap, Cpu, Award } from 'lucide-react';
 
 interface HowItWorksProps {
   onOpenAuth: () => void;
@@ -12,34 +12,34 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAuth }) => {
   const steps = [
     {
       number: 1,
-      title: 'Upload Your Course Material',
+      title: 'Upload Course Material',
       short: 'Upload Any Format',
-      description: 'Drag & drop PDFs, PowerPoint slides, Word documents, YouTube lecture links, or even photos of handwritten notes.',
-      icon: <Upload className="w-6 h-6 text-[#6366F1]" />,
+      description: 'Drag & drop PDFs, PowerPoint slides, Word documents, YouTube lecture links, or scanned handwritten notes.',
+      icon: <Upload className="w-6 h-6 text-amber-400" />,
       features: [
         'Supports PDF, PPTX, DOCX & Audio Transcripts',
-        'OCR Handwriting Recognition',
-        'Multi-File Batch Uploads'
+        'OCR Handwriting & Formula Recognition',
+        'Multi-File Batch Drop-In'
       ],
       previewContent: (
-        <div className="space-y-3 p-4 bg-[#0F172A] rounded-xl border border-[#334155]">
-          <div className="border-2 border-dashed border-[#6366F1]/40 rounded-xl p-6 text-center hover:border-[#6366F1] transition-colors bg-[#6366F1]/10">
-            <FileUp className="w-10 h-10 text-[#6366F1] mx-auto mb-2 animate-bounce" />
-            <p className="text-xs font-bold text-[#F8FAFC] mb-1">
-              Drop your lecture notes, slides, or textbook PDF here
+        <div className="space-y-3 p-4 bg-[#040914] rounded-xl border border-amber-500/20">
+          <div className="border-2 border-dashed border-amber-400/50 rounded-xl p-6 text-center hover:border-amber-400 transition-colors bg-amber-400/5">
+            <FileUp className="w-10 h-10 text-amber-400 mx-auto mb-2 animate-bounce" />
+            <p className="text-xs font-bold font-mono text-white uppercase tracking-wider mb-1">
+              3D INTAKE PORTAL · DROP DOSSIER OR SLIDES HERE
             </p>
-            <p className="text-[10px] text-[#94A3B8]">
+            <p className="text-[10px] text-zinc-400 font-mono">
               Supports files up to 500MB • Drag & drop or click to browse
             </p>
             <div className="flex flex-wrap justify-center gap-2 mt-4 max-w-full">
-              <span className="text-[10px] bg-[#1E293B] border border-[#334155] text-slate-300 px-2 py-1 rounded-lg flex items-center gap-1 max-w-full truncate">
-                <FileUp className="w-3 h-3 text-[#6366F1] shrink-0" /> <span className="truncate">Bio_Lecture_Ch4.pdf</span>
+              <span className="text-[10px] bg-[#081220] border border-amber-500/20 text-amber-300 px-2 py-1 rounded-md flex items-center gap-1 font-mono">
+                <FileUp className="w-3 h-3 text-amber-400 shrink-0" /> <span className="truncate">Bio_Lecture_Ch4.pdf</span>
               </span>
-              <span className="text-[10px] bg-[#1E293B] border border-[#334155] text-slate-300 px-2 py-1 rounded-lg flex items-center gap-1 max-w-full truncate">
-                <Mic className="w-3 h-3 text-[#6366F1] shrink-0" /> <span className="truncate">Audio_Rec_12.mp3</span>
+              <span className="text-[10px] bg-[#081220] border border-amber-500/20 text-amber-300 px-2 py-1 rounded-md flex items-center gap-1 font-mono">
+                <Mic className="w-3 h-3 text-amber-400 shrink-0" /> <span className="truncate">Audio_Rec_12.mp3</span>
               </span>
-              <span className="text-[10px] bg-[#1E293B] border border-[#334155] text-slate-300 px-2 py-1 rounded-lg flex items-center gap-1 max-w-full truncate">
-                <ImageIcon className="w-3 h-3 text-[#6366F1] shrink-0" /> <span className="truncate">Whiteboard.png</span>
+              <span className="text-[10px] bg-[#081220] border border-amber-500/20 text-amber-300 px-2 py-1 rounded-md flex items-center gap-1 font-mono">
+                <ImageIcon className="w-3 h-3 text-amber-400 shrink-0" /> <span className="truncate">Whiteboard.png</span>
               </span>
             </div>
           </div>
@@ -48,65 +48,65 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAuth }) => {
     },
     {
       number: 2,
-      title: 'Choose Your Study Mode',
-      short: 'Pick AI Action',
-      description: 'Select what you need: Executive Summary, "Explain Like I\'m 5", Spaced Flashcards, or Practice Exam Builder.',
-      icon: <Sliders className="w-6 h-6 text-[#6366F1]" />,
+      title: 'Quantum Neural Synthesis',
+      short: 'AI Synthesis',
+      description: 'Select output type: Executive Summary, "Explain Like I\'m 5", Spaced Flashcard Deck, or Interactive AI Tutor.',
+      icon: <Cpu className="w-6 h-6 text-amber-400" />,
       features: [
-        'Customizable Explanation Depth',
+        'Customizable Depth & High-Yield Filtering',
         'Automatic Anki & Quizlet Deck Generator',
         'AI Exam Question Predictor'
       ],
       previewContent: (
-        <div className="space-y-2 p-3 sm:p-4 bg-[#0F172A] rounded-xl border border-[#334155] max-w-full overflow-hidden">
-          <div className="p-3 bg-[#6366F1]/20 border border-[#6366F1]/40 rounded-xl flex flex-wrap items-center justify-between gap-2">
+        <div className="space-y-2 p-3 sm:p-4 bg-[#040914] rounded-xl border border-amber-500/20">
+          <div className="p-3 bg-amber-400/20 border border-amber-400/50 rounded-lg flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-2 min-w-0">
-              <Sparkles className="w-4 h-4 text-[#818CF8] shrink-0" />
-              <span className="text-xs font-bold text-white truncate">Generate Executive Summary</span>
+              <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
+              <span className="text-xs font-extrabold uppercase text-white truncate">Generate Executive Intel Takeaways</span>
             </div>
-            <span className="text-[10px] bg-[#6366F1] text-white px-2 py-0.5 rounded font-extrabold shrink-0">Selected</span>
+            <span className="text-[10px] bg-amber-400 text-slate-950 px-2 py-0.5 rounded font-black uppercase shrink-0">Selected</span>
           </div>
 
-          <div className="p-3 bg-[#1E293B] border border-[#334155] rounded-xl flex flex-wrap items-center justify-between gap-2 opacity-80 hover:opacity-100">
+          <div className="p-3 bg-[#081220] border border-amber-500/20 rounded-lg flex flex-wrap items-center justify-between gap-2 opacity-80 hover:opacity-100">
             <div className="flex items-center gap-2 min-w-0">
-              <Zap className="w-4 h-4 text-[#6366F1] shrink-0" />
-              <span className="text-xs font-bold text-[#F8FAFC] truncate">Explain Complex Concepts (ELI5)</span>
+              <Zap className="w-4 h-4 text-amber-400 shrink-0" />
+              <span className="text-xs font-bold uppercase text-zinc-200 truncate">Explain Complex Concepts (ELI5 Metaphor)</span>
             </div>
-            <span className="text-[10px] text-[#94A3B8] shrink-0">Available</span>
+            <span className="text-[10px] text-zinc-400 font-mono uppercase shrink-0">Available</span>
           </div>
 
-          <div className="p-3 bg-[#1E293B] border border-[#334155] rounded-xl flex flex-wrap items-center justify-between gap-2 opacity-80 hover:opacity-100">
+          <div className="p-3 bg-[#081220] border border-amber-500/20 rounded-lg flex flex-wrap items-center justify-between gap-2 opacity-80 hover:opacity-100">
             <div className="flex items-center gap-2 min-w-0">
-              <Trophy className="w-4 h-4 text-[#6366F1] shrink-0" />
-              <span className="text-xs font-bold text-[#F8FAFC] truncate">Build Spaced Flashcard Deck</span>
+              <Trophy className="w-4 h-4 text-amber-400 shrink-0" />
+              <span className="text-xs font-bold uppercase text-zinc-200 truncate">Build Spaced Repetition Deck</span>
             </div>
-            <span className="text-[10px] text-[#94A3B8] shrink-0">Available</span>
+            <span className="text-[10px] text-zinc-400 font-mono uppercase shrink-0">Available</span>
           </div>
         </div>
       )
     },
     {
       number: 3,
-      title: 'Master Material & Ace Your Exam',
-      short: 'Ace Your Exams',
-      description: 'Review structured takeaways, practice flashcards on your phone, and ask the 24/7 AI tutor any lingering questions.',
-      icon: <Trophy className="w-6 h-6 text-[#10B981]" />,
+      title: 'Instant Exam Domination',
+      short: 'Ace Exams',
+      description: 'Review structured takeaways, practice flashcards on mobile, and query the 24/7 AI tutor for instant high-yield mastery.',
+      icon: <Award className="w-6 h-6 text-amber-400" />,
       features: [
-        '3x Faster Exam Prep',
-        '100% Retain Core Concepts',
-        'Sync Across Desktop & Mobile'
+        '3x Faster Exam Preparation',
+        '100% Concept Retention Guarantee',
+        'Seamless Desktop & Mobile Sync'
       ],
       previewContent: (
-        <div className="p-4 sm:p-5 bg-[#1E293B] rounded-xl border border-[#10B981]/30 space-y-3 max-w-full overflow-hidden">
+        <div className="p-4 sm:p-5 bg-[#081220] rounded-xl border border-amber-400/30 space-y-3 font-mono">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <span className="text-xs font-bold text-[#10B981] flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 shrink-0" /> Exam Mastery Status: 98%
+            <span className="text-xs font-extrabold text-amber-400 flex items-center gap-1.5 uppercase tracking-wider">
+              <CheckCircle2 className="w-4 h-4 shrink-0 text-amber-400" /> EXAM MASTERY STATUS: 98%
             </span>
-            <span className="text-[10px] bg-[#10B981]/20 text-[#10B981] px-2 py-0.5 rounded-full font-bold shrink-0">
-              Ready for Finals
+            <span className="text-[10px] bg-amber-400 text-slate-950 px-2 py-0.5 rounded font-black uppercase shrink-0">
+              READY FOR FINALS
             </span>
           </div>
-          <p className="text-xs text-slate-200">
+          <p className="text-xs text-zinc-200 font-sans">
             "You have reviewed 48 flashcards, solved 12 practice questions, and summarized all 6 lecture modules. Estimated exam grade: A+"
           </p>
         </div>
@@ -115,21 +115,21 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAuth }) => {
   ];
 
   return (
-    <section id="how-it-works" className="py-24 relative bg-[#0F172A]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="how-it-works" className="py-24 relative bg-[#040914] overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1E293B] border border-[#334155] text-[#818CF8] text-xs font-bold mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-[#6366F1]" />
-            <span>3 Simple Steps</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#081220] border border-amber-400/40 text-amber-300 text-xs font-mono font-bold uppercase tracking-widest mb-4">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <span>3 SIMPLE STEPS TO MASTERY</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#F8FAFC] tracking-tight">
-            How StudyMind AI Works
+          <h2 className="text-3xl sm:text-5xl font-black uppercase text-white tracking-tight font-sans">
+            HOW STUDYMIND AI <span className="text-gold-gradient text-gold-bright">OPERATES</span>
           </h2>
 
-          <p className="mt-3 text-base sm:text-lg text-[#94A3B8]">
-            From raw messy lecture slides to exam mastery in 3 painless steps.
+          <p className="mt-3 text-base sm:text-lg text-slate-300">
+            From raw messy lecture decks to exam domination in 3 painless steps.
           </p>
         </div>
 
@@ -145,34 +145,34 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAuth }) => {
                   onClick={() => setActiveStep(s.number)}
                   className={`cursor-pointer rounded-2xl p-5 transition-all duration-300 border ${
                     isActive
-                      ? 'bg-[#1E293B] border-[#6366F1] shadow-lg shadow-indigo-500/20'
-                      : 'bg-[#1E293B]/60 border-[#334155] hover:border-[#6366F1]/40'
+                      ? 'glass-quantum-card border-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.3)]'
+                      : 'bg-[#081220]/60 border-amber-500/20 hover:border-amber-400/40'
                   }`}
                 >
                   <div className="flex items-start gap-4">
                     <div
-                      className={`w-10 h-10 rounded-xl flex items-center justify-center font-extrabold text-sm shrink-0 transition-colors ${
+                      className={`w-10 h-10 rounded-xl flex items-center justify-center font-mono font-black text-sm shrink-0 transition-colors ${
                         isActive
-                          ? 'bg-[#6366F1] text-white shadow-md'
-                          : 'bg-[#0F172A] text-[#94A3B8]'
+                          ? 'bg-amber-400 text-slate-950 shadow-md'
+                          : 'bg-[#040914] text-zinc-500 border border-amber-500/20'
                       }`}
                     >
                       0{s.number}
                     </div>
 
                     <div className="flex-1">
-                      <h3 className="text-base font-bold text-[#F8FAFC] mb-1">
+                      <h3 className="text-base font-extrabold uppercase text-white mb-1 font-sans">
                         {s.title}
                       </h3>
-                      <p className="text-xs text-[#94A3B8] leading-relaxed mb-3">
+                      <p className="text-xs text-zinc-400 leading-relaxed mb-3">
                         {s.description}
                       </p>
 
                       {isActive && (
-                        <div className="space-y-1.5 pt-2 border-t border-[#334155]">
+                        <div className="space-y-1.5 pt-2 border-t border-amber-500/20 font-mono">
                           {s.features.map((f, idx) => (
-                            <div key={idx} className="flex items-center gap-2 text-xs text-[#a5b4fc]">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981] shrink-0" />
+                            <div key={idx} className="flex items-center gap-2 text-xs text-amber-300">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                               <span>{f}</span>
                             </div>
                           ))}
@@ -192,18 +192,18 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAuth }) => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4 }}
-              className="glass-card rounded-2xl border border-[#334155] p-4 sm:p-6 lg:p-8 bg-[#1E293B] relative overflow-hidden shadow-2xl max-w-full"
+              className="glass-quantum-panel rounded-2xl border border-amber-400/30 p-4 sm:p-6 lg:p-8 relative overflow-hidden shadow-2xl max-w-full"
             >
-              <div className="flex flex-wrap items-center justify-between pb-4 mb-4 border-b border-[#334155] gap-3">
+              <div className="flex flex-wrap items-center justify-between pb-4 mb-4 border-b border-amber-500/20 gap-3">
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="p-2.5 rounded-xl bg-[#0F172A] border border-[#334155] shrink-0">
+                  <div className="p-2.5 rounded-xl bg-[#040914] border border-amber-500/20 shrink-0">
                     {steps[activeStep - 1].icon}
                   </div>
                   <div className="min-w-0">
-                    <span className="text-[10px] uppercase tracking-wider text-[#818CF8] font-bold block truncate">
-                      STEP {activeStep} PREVIEW
+                    <span className="text-[10px] uppercase tracking-wider text-amber-400 font-bold block truncate font-mono">
+                      STEP 0{activeStep} QUANTUM PREVIEW
                     </span>
-                    <h4 className="text-sm sm:text-base font-bold text-[#F8FAFC] truncate">
+                    <h4 className="text-sm sm:text-base font-extrabold uppercase text-white truncate font-sans">
                       {steps[activeStep - 1].title}
                     </h4>
                   </div>
@@ -215,7 +215,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAuth }) => {
                       key={num}
                       onClick={() => setActiveStep(num)}
                       className={`w-3 h-3 rounded-full cursor-pointer transition-colors ${
-                        activeStep === num ? 'bg-[#6366F1] scale-125' : 'bg-[#0F172A]'
+                        activeStep === num ? 'bg-amber-400 scale-125 shadow-[0_0_8px_rgba(245,158,11,0.8)]' : 'bg-[#040914] border border-amber-500/30'
                       }`}
                     />
                   ))}
@@ -225,20 +225,20 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAuth }) => {
               {/* Dynamic Step Visual Content */}
               {steps[activeStep - 1].previewContent}
 
-              <div className="mt-6 pt-4 border-t border-[#334155] flex flex-wrap items-center justify-between gap-3">
+              <div className="mt-6 pt-4 border-t border-amber-500/20 flex flex-wrap items-center justify-between gap-3">
                 <button
                   onClick={() => setActiveStep(activeStep === 3 ? 1 : activeStep + 1)}
-                  className="text-xs font-bold text-[#94A3B8] hover:text-[#6366F1] flex items-center gap-1.5"
+                  className="text-xs font-bold font-mono uppercase tracking-wider text-zinc-400 hover:text-amber-300 flex items-center gap-1.5"
                 >
-                  <span>Next Step</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <span>NEXT STEP</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-amber-400" />
                 </button>
 
                 <button
                   onClick={onOpenAuth}
-                  className="px-4 py-2 rounded-xl text-xs font-extrabold text-white bg-[#6366F1] hover:bg-indigo-500 shadow-md shadow-indigo-500/20 transition-colors"
+                  className="btn-quantum-gold px-4 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wider"
                 >
-                  Start Step 1 Free
+                  START STEP 1 FREE
                 </button>
               </div>
             </motion.div>
@@ -248,3 +248,4 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAuth }) => {
     </section>
   );
 };
+

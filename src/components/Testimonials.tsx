@@ -13,33 +13,33 @@ export const Testimonials: React.FC = () => {
     : TESTIMONIALS.filter((t) => t.university === filterUni);
 
   return (
-    <section id="testimonials" className="py-24 relative bg-[#0F172A] border-t border-[#334155]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="testimonials" className="py-24 relative bg-[#040914] border-t border-amber-500/20 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1E293B] border border-[#334155] text-[#818CF8] text-xs font-bold mb-4">
-            <GraduationCap className="w-3.5 h-3.5 text-[#6366F1]" />
-            <span>Real Student Outcomes</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#081220] border border-amber-400/40 text-amber-300 text-xs font-mono font-bold uppercase tracking-widest mb-4">
+            <GraduationCap className="w-3.5 h-3.5 text-amber-400" />
+            <span>VERIFIED SCHOLAR PROOF</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#F8FAFC] tracking-tight">
-            Loved by 150,000+ Students Worldwide
+          <h2 className="text-3xl sm:text-5xl font-black uppercase text-white tracking-tight font-sans">
+            LOVED BY <span className="text-gold-gradient text-gold-bright">150,000+ SCHOLARS</span> WORLDWIDE
           </h2>
 
-          <p className="mt-3 text-base sm:text-lg text-[#94A3B8]">
-            See how students from top universities transformed their study habits, raised their GPAs, and reclaimed their free time.
+          <p className="mt-3 text-base sm:text-lg text-slate-300">
+            See how students from premier Ivy & global universities raised their GPAs, mastered complex syllabi, and reclaimed their study hours.
           </p>
 
           {/* University Filter Buttons */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 font-mono">
             {universities.map((uni) => (
               <button
                 key={uni}
                 onClick={() => setFilterUni(uni)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${
                   filterUni === uni
-                    ? 'bg-[#6366F1] text-white shadow-md shadow-indigo-500/30'
-                    : 'bg-[#1E293B] border border-[#334155] text-[#94A3B8] hover:text-white'
+                    ? 'bg-amber-400 text-slate-950 shadow-[0_0_15px_rgba(245,158,11,0.5)] font-extrabold'
+                    : 'bg-[#081220] border border-amber-500/20 text-zinc-400 hover:text-white hover:border-amber-400/40'
                 }`}
               >
                 {uni}
@@ -57,58 +57,58 @@ export const Testimonials: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="glass-card rounded-2xl p-6 border border-[#334155] bg-[#1E293B] flex flex-col justify-between relative overflow-hidden shadow-lg hover:border-[#6366F1]/50 transition-all"
+              className="glass-quantum-card rounded-2xl p-6 border border-amber-500/20 flex flex-col justify-between relative overflow-hidden shadow-xl hover:border-amber-400/50 transition-all"
             >
-              <div className="absolute top-4 right-4 text-[#334155]/60 pointer-events-none">
+              <div className="absolute top-4 right-4 text-amber-500/10 pointer-events-none">
                 <Quote className="w-16 h-16" />
               </div>
 
               <div>
                 {/* Header: Stars & GPA Badge */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex text-[#6366F1] gap-1">
+                <div className="flex items-center justify-between mb-4 font-mono">
+                  <div className="flex text-amber-400 gap-1">
                     {[...Array(item.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-[#6366F1] text-[#6366F1]" />
+                      <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
                     ))}
                   </div>
 
-                  <span className="text-xs font-extrabold text-[#10B981] bg-[#0F172A] border border-[#334155] px-3 py-1 rounded-full flex items-center gap-1">
-                    <TrendingUp className="w-3.5 h-3.5 text-[#10B981]" />
+                  <span className="text-xs font-extrabold text-amber-300 bg-[#040914] border border-amber-400/40 px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
+                    <TrendingUp className="w-3.5 h-3.5 text-amber-400" />
                     {item.gpaBoost}
                   </span>
                 </div>
 
                 {/* Review Highlight Banner */}
-                <div className="mb-3 text-xs font-bold text-[#a5b4fc] bg-[#0F172A] border border-[#334155] px-3 py-1.5 rounded-lg inline-block">
+                <div className="mb-3 text-xs font-bold font-mono text-amber-300 bg-[#040914] border border-amber-500/20 px-3 py-1.5 rounded-lg inline-block">
                   ✨ "{item.highlight}"
                 </div>
 
                 {/* Review Body */}
-                <p className="text-sm text-slate-200 leading-relaxed mb-6 italic">
+                <p className="text-sm text-zinc-200 leading-relaxed mb-6 italic">
                   "{item.content}"
                 </p>
               </div>
 
               {/* Student Footer */}
-              <div className="pt-4 border-t border-[#334155] flex items-center justify-between">
+              <div className="pt-4 border-t border-amber-500/20 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <img
                     src={item.avatar}
                     alt={item.name}
-                    className="w-10 h-10 rounded-full object-cover border border-[#334155]"
+                    className="w-10 h-10 rounded-full object-cover border border-amber-400/50"
                   />
                   <div>
-                    <h4 className="text-sm font-bold text-white flex items-center gap-1.5">
+                    <h4 className="text-sm font-bold text-white flex items-center gap-1.5 font-sans">
                       <span>{item.name}</span>
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981]" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" />
                     </h4>
-                    <p className="text-xs text-[#94A3B8]">
+                    <p className="text-xs text-zinc-400">
                       {item.role} • {item.major}
                     </p>
                   </div>
                 </div>
 
-                <span className="text-[11px] font-bold text-slate-300 bg-[#0F172A] border border-[#334155] px-2.5 py-1 rounded-md">
+                <span className="text-[11px] font-bold text-amber-300 bg-[#040914] border border-amber-500/30 px-2.5 py-1 rounded-md font-mono">
                   {item.university}
                 </span>
               </div>
@@ -117,25 +117,25 @@ export const Testimonials: React.FC = () => {
         </div>
 
         {/* Aggregate Proof Bar */}
-        <div className="mt-12 bg-[#1E293B] border border-[#334155] rounded-2xl p-6 text-center max-w-4xl mx-auto flex flex-wrap items-center justify-around gap-6 shadow-xl">
+        <div className="mt-12 glass-quantum-panel rounded-2xl p-6 text-center max-w-4xl mx-auto flex flex-wrap items-center justify-around gap-6 shadow-2xl border border-amber-400/30 font-mono">
           <div>
-            <div className="text-2xl sm:text-3xl font-extrabold text-white">150,000+</div>
-            <p className="text-xs text-[#94A3B8] mt-1">Active Students</p>
+            <div className="text-2xl sm:text-3xl font-black text-white font-sans">150,000+</div>
+            <p className="text-xs text-zinc-400 uppercase tracking-wider mt-1">Active Scholars</p>
           </div>
-          <div className="hidden sm:block h-8 w-[1px] bg-[#334155]" />
+          <div className="hidden sm:block h-8 w-[1px] bg-amber-500/20" />
           <div>
-            <div className="text-2xl sm:text-3xl font-extrabold text-[#6366F1]">1.2M+</div>
-            <p className="text-xs text-[#94A3B8] mt-1">PDFs Summarized</p>
+            <div className="text-2xl sm:text-3xl font-black text-amber-400 font-sans">1.2M+</div>
+            <p className="text-xs text-zinc-400 uppercase tracking-wider mt-1">Syllabi Summarized</p>
           </div>
-          <div className="hidden sm:block h-8 w-[1px] bg-[#334155]" />
+          <div className="hidden sm:block h-8 w-[1px] bg-amber-500/20" />
           <div>
-            <div className="text-2xl sm:text-3xl font-extrabold text-[#10B981]">98.4%</div>
-            <p className="text-xs text-[#94A3B8] mt-1">Pass Rate Improvement</p>
+            <div className="text-2xl sm:text-3xl font-black text-amber-400 font-sans">98.4%</div>
+            <p className="text-xs text-zinc-400 uppercase tracking-wider mt-1">Grade Improvement</p>
           </div>
-          <div className="hidden sm:block h-8 w-[1px] bg-[#334155]" />
+          <div className="hidden sm:block h-8 w-[1px] bg-amber-500/20" />
           <div>
-            <div className="text-2xl sm:text-3xl font-extrabold text-[#6366F1]">4.9/5</div>
-            <p className="text-xs text-[#94A3B8] mt-1">Student Satisfaction</p>
+            <div className="text-2xl sm:text-3xl font-black text-amber-300 font-sans">4.98/5</div>
+            <p className="text-xs text-zinc-400 uppercase tracking-wider mt-1">Student Satisfaction</p>
           </div>
         </div>
       </div>
