@@ -52,11 +52,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       try {
         data = text ? JSON.parse(text) : {};
       } catch {
-        throw new Error(`Server returned invalid response (Status ${res.status}). Please try again.`);
+        data = {};
       }
 
       if (!res.ok) {
-        throw new Error(data.error || `Authentication failed (${res.status})`);
+        throw new Error(data.error || `Authentication failed (${res.status}). Please try again.`);
       }
 
       if (data.token) {

@@ -18,6 +18,17 @@ async function startServer() {
   app.use(express.json({ limit: "10mb" }));
   app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
+  // Enable CORS & Preflight OPTIONS handling for all API endpoints
+  app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    if (req.method === "OPTIONS") {
+      return res.sendStatus(200);
+    }
+    next();
+  });
+
   // Attempt initial MongoDB connection asynchronously
   connectToDatabase().catch((err) => {
     console.warn("[MongoDB Startup]", err.message);
@@ -41,7 +52,7 @@ async function startServer() {
   // User Signup API (MongoDB + In-Memory Fallback + JWT Secret + bcrypt password hashing)
   app.post("/api/auth/signup", async (req, res) => {
     try {
-      const { email, password, university } = req.body;
+      const { email, password, university } = req.body || {};
       if (!email || !password) {
         return res.status(400).json({ error: "Email and password are required" });
       }
@@ -124,7 +135,7 @@ async function startServer() {
   // User Login API (MongoDB + In-Memory Fallback + Password verification + JWT Token)
   app.post("/api/auth/login", async (req, res) => {
     try {
-      const { email, password } = req.body;
+      const { email, password } = req.body || {};
       if (!email || !password) {
         return res.status(400).json({ error: "Email and password are required" });
       }
