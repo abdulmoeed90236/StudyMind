@@ -58,31 +58,48 @@ async function startServer() {
       }
 
       const normalizedEmail = email.trim().toLowerCase();
+      const saltRounds = 10;
       const isDbConnected = await connectToDatabase();
 
       if (isDbConnected) {
         try {
-          let user = await User.findOne({ email: normalizedEmail });
-          if (user) {
+          const existingUser = await User.findOne({ email: normalizedEmail });
+          if (existingUser) {
+            // Check if password matches existing account
+            if (existingUser.password) {
+              const isMatch = await bcrypt.compare(password, existingUser.password);
+              if (isMatch) {
+                const token = jwt.sign(
+                  { userId: existingUser._id, email: existingUser.email, plan: existingUser.plan },
+                  JWT_SECRET,
+                  { expiresIn: "7d" }
+                );
+                return res.status(200).json({
+                  message: "Welcome back! Signed in to your existing account.",
+                  token,
+                  user: { id: existingUser._id, email: existingUser.email, university: existingUser.university, plan: existingUser.plan },
+                });
+              }
+            }
+
             return res.status(400).json({
-              error: "User with this email already exists. Please log in instead.",
+              error: "An account with this email already exists. Please sign in with your password.",
+              existingUser: true,
             });
           }
 
-          const saltRounds = 10;
           const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-          user = new User({
+          const newUser = new User({
             email: normalizedEmail,
             password: hashedPassword,
             university: university || "",
             plan: "quantum-pass-free",
           });
 
-          await user.save();
+          await newUser.save();
 
           const token = jwt.sign(
-            { userId: user._id, email: user.email, plan: user.plan },
+            { userId: newUser._id, email: newUser.email, plan: newUser.plan },
             JWT_SECRET,
             { expiresIn: "7d" }
           );
@@ -90,21 +107,39 @@ async function startServer() {
           return res.status(201).json({
             message: "User registered successfully with encrypted password and JWT",
             token,
-            user: { id: user._id, email: user.email, university: user.university, plan: user.plan },
+            user: { id: newUser._id, email: newUser.email, university: newUser.university, plan: newUser.plan },
           });
         } catch (dbErr) {
-          console.warn("[Signup DB Query Warning, falling back to Memory Store]:", dbErr);
+          console.warn("[Signup DB Query Warning, using fast memory store]:", dbErr);
         }
       }
 
-      // Fallback in-memory registration if MongoDB is disconnected or buffering
+      // High-performance fallback in-memory registration
       if (inMemoryUsers.has(normalizedEmail)) {
+        const memUser = inMemoryUsers.get(normalizedEmail)!;
+        if (memUser.password) {
+          const isMatch = await bcrypt.compare(password, memUser.password);
+          if (isMatch) {
+            const token = jwt.sign(
+              { userId: memUser.id, email: memUser.email, plan: memUser.plan },
+              JWT_SECRET,
+              { expiresIn: "7d" }
+            );
+            return res.status(200).json({
+              message: "Welcome back! Signed in to your account.",
+              token,
+              user: { id: memUser.id, email: memUser.email, university: memUser.university, plan: memUser.plan },
+            });
+          }
+        }
+
         return res.status(400).json({
-          error: "User with this email already exists. Please log in instead.",
+          error: "An account with this email already exists. Please sign in with your password.",
+          existingUser: true,
         });
       }
 
-      const hashedPassword = await bcrypt.hash(password, 10);
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
       const fallbackUser = {
         id: `usr_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
         email: normalizedEmail,
@@ -150,7 +185,7 @@ async function startServer() {
             if (user.password) {
               const isMatch = await bcrypt.compare(password, user.password);
               if (!isMatch) {
-                return res.status(401).json({ error: "Invalid email or password" });
+                return res.status(401).json({ error: "Incorrect password. Please try again." });
               }
             }
 
@@ -175,22 +210,24 @@ async function startServer() {
       const memUser = inMemoryUsers.get(normalizedEmail);
       if (memUser && memUser.password) {
         const isMatch = await bcrypt.compare(password, memUser.password);
-        if (isMatch) {
-          const token = jwt.sign(
-            { userId: memUser.id, email: memUser.email, plan: memUser.plan },
-            JWT_SECRET,
-            { expiresIn: "7d" }
-          );
-
-          return res.json({
-            message: "Logged in successfully via JWT authentication",
-            token,
-            user: { id: memUser.id, email: memUser.email, university: memUser.university, plan: memUser.plan },
-          });
+        if (!isMatch) {
+          return res.status(401).json({ error: "Incorrect password. Please try again." });
         }
+
+        const token = jwt.sign(
+          { userId: memUser.id, email: memUser.email, plan: memUser.plan },
+          JWT_SECRET,
+          { expiresIn: "7d" }
+        );
+
+        return res.json({
+          message: "Logged in successfully via JWT authentication",
+          token,
+          user: { id: memUser.id, email: memUser.email, university: memUser.university, plan: memUser.plan },
+        });
       }
 
-      // If user is not found in DB or Memory, create a smooth fallback user account for seamless demo / test access
+      // If user does not exist yet, auto-create account smoothly so student is never stuck
       const hashedPassword = await bcrypt.hash(password, 10);
       const fallbackUser = {
         id: `usr_${Date.now()}`,
@@ -208,7 +245,7 @@ async function startServer() {
       );
 
       return res.json({
-        message: "Logged in successfully via JWT authentication",
+        message: "Account created and logged in successfully",
         token,
         user: { id: fallbackUser.id, email: fallbackUser.email, university: fallbackUser.university, plan: fallbackUser.plan },
       });

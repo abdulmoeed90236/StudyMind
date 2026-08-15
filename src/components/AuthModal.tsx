@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, ArrowRight, CheckCircle2, Lock, Mail, GraduationCap, Brain, Eye, EyeOff, Loader2 } from 'lucide-react';
+import { X, ArrowRight, CheckCircle2, Lock, Mail, GraduationCap, Brain, Eye, EyeOff, Loader2, UserPlus, LogIn } from 'lucide-react';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -26,6 +26,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [errorMsg, setErrorMsg] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
+  // Sync mode whenever modal opens or initialMode prop changes
+  useEffect(() => {
+    if (isOpen) {
+      setMode(initialMode);
+      setErrorMsg('');
+      setShowPassword(false);
+      setSubmitted(false);
+    }
+  }, [isOpen, initialMode]);
+
   if (!isOpen) return null;
 
   const handleSwitchMode = (newMode: 'login' | 'signup') => {
@@ -36,6 +46,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!email.trim() || !password) {
+      setErrorMsg('Please enter both your email address and password.');
+      return;
+    }
+
     setLoading(true);
     setErrorMsg('');
 
@@ -59,17 +74,17 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         throw new Error(data.error || `Authentication failed (${res.status}). Please try again.`);
       }
 
+      const activeEmail = data.user?.email || email.trim();
       if (data.token) {
         localStorage.setItem('quantum_token', data.token);
-        const userEmail = data.user?.email || email.trim();
-        if (userEmail) {
-          localStorage.setItem('quantum_user_email', userEmail);
+        if (activeEmail) {
+          localStorage.setItem('quantum_user_email', activeEmail);
         }
       }
 
       setSubmitted(true);
-      if (onSuccess && (data.user?.email || email)) {
-        onSuccess(data.user?.email || email);
+      if (onSuccess && activeEmail) {
+        onSuccess(activeEmail);
       }
     } catch (err: any) {
       console.error('Auth Error:', err);
@@ -83,7 +98,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     setSubmitted(false);
     onClose();
     if (onSuccess && email) {
-      onSuccess(email);
+      onSuccess(email.trim());
     }
   };
 
@@ -109,15 +124,15 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
           {!submitted ? (
             <div>
-              {/* Header */}
-              <div className="mb-6">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#040914] text-amber-300 text-xs font-mono font-bold mb-3 border border-amber-400/40 uppercase tracking-widest">
+              {/* Header Badge */}
+              <div className="mb-4">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#040914] text-amber-300 text-xs font-mono font-bold mb-2 border border-amber-400/40 uppercase tracking-widest">
                   <Brain className="w-3.5 h-3.5 text-amber-400" />
                   <span>{planName ? `Selected Plan: ${planName}` : 'Student Academic Copilot'}</span>
                 </div>
 
                 <h3 className="text-2xl font-black uppercase text-white font-sans">
-                  {mode === 'signup' ? 'Create Your Free Quantum Pass' : 'Welcome Back'}
+                  {mode === 'signup' ? 'Create Free Account' : 'Welcome Back'}
                 </h3>
                 <p className="text-xs text-zinc-300 mt-1">
                   {mode === 'signup'
@@ -126,11 +141,50 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 </p>
               </div>
 
+              {/* Mode Switcher Tabs */}
+              <div className="flex p-1 mb-4 rounded-xl bg-[#040914] border border-amber-500/30">
+                <button
+                  type="button"
+                  onClick={() => handleSwitchMode('signup')}
+                  className={`flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 ${
+                    mode === 'signup'
+                      ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-md font-extrabold'
+                      : 'text-zinc-400 hover:text-amber-300'
+                  }`}
+                >
+                  <UserPlus className="w-3.5 h-3.5" />
+                  <span>Sign Up Free</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleSwitchMode('login')}
+                  className={`flex-1 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 ${
+                    mode === 'login'
+                      ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-md font-extrabold'
+                      : 'text-zinc-400 hover:text-amber-300'
+                  }`}
+                >
+                  <LogIn className="w-3.5 h-3.5" />
+                  <span>Sign In</span>
+                </button>
+              </div>
+
               {/* Error Alert */}
               {errorMsg && (
-                <div className="mb-4 p-3 rounded-xl bg-red-950/80 border border-red-500/50 text-red-200 text-xs font-mono flex items-start gap-2">
-                  <span className="shrink-0 text-red-400 font-bold">⚠️</span>
-                  <span>{errorMsg}</span>
+                <div className="mb-4 p-3 rounded-xl bg-red-950/80 border border-red-500/50 text-red-200 text-xs font-mono flex flex-col gap-1.5">
+                  <div className="flex items-start gap-2">
+                    <span className="shrink-0 text-red-400 font-bold">⚠️</span>
+                    <span>{errorMsg}</span>
+                  </div>
+                  {errorMsg.toLowerCase().includes('already exists') && (
+                    <button
+                      type="button"
+                      onClick={() => handleSwitchMode('login')}
+                      className="self-start text-xs font-bold text-amber-300 underline uppercase tracking-wider pl-5 hover:text-amber-200"
+                    >
+                      → Click here to Sign In instead
+                    </button>
+                  )}
                 </div>
               )}
 
@@ -146,7 +200,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                       <input
                         type="text"
                         value={university}
-                        onChange={(e) => setUniversity(e.target.value)}
+                        onChange={(e) => {
+                          setUniversity(e.target.value);
+                          if (errorMsg) setErrorMsg('');
+                        }}
                         placeholder="e.g. Stanford University"
                         className="w-full bg-[#040914] border border-amber-500/30 rounded-xl pl-9 pr-3 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
                       />
@@ -164,7 +221,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                       type="email"
                       required
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        if (errorMsg) setErrorMsg('');
+                      }}
                       placeholder="alex@university.edu"
                       className="w-full bg-[#040914] border border-amber-500/30 rounded-xl pl-9 pr-3 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
                     />
@@ -181,7 +241,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                       type={showPassword ? 'text' : 'password'}
                       required
                       value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                        if (errorMsg) setErrorMsg('');
+                      }}
                       placeholder="••••••••••••"
                       className="w-full bg-[#040914] border border-amber-500/30 rounded-xl pl-9 pr-10 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
                     />
@@ -209,7 +272,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   {loading ? (
                     <>
                       <Loader2 className="w-4 h-4 text-slate-950 animate-spin" />
-                      <span>Authenticating...</span>
+                      <span>Processing Account...</span>
                     </>
                   ) : (
                     <>
@@ -220,7 +283,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 </button>
               </form>
 
-              {/* Mode Toggle */}
+              {/* Mode Toggle Footer */}
               <div className="mt-5 text-center text-xs text-zinc-400 font-mono">
                 {mode === 'signup' ? (
                   <p>
@@ -230,7 +293,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                       onClick={() => handleSwitchMode('login')}
                       className="text-amber-300 font-bold uppercase tracking-wider hover:underline ml-1"
                     >
-                      Log In
+                      Sign In Here
                     </button>
                   </p>
                 ) : (
@@ -241,7 +304,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                       onClick={() => handleSwitchMode('signup')}
                       className="text-amber-300 font-bold uppercase tracking-wider hover:underline ml-1"
                     >
-                      Sign Up Free
+                      Create Account Free
                     </button>
                   </p>
                 )}
@@ -277,4 +340,5 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     </AnimatePresence>
   );
 };
+
 
